@@ -9,14 +9,15 @@
     "start": "cross-env NODE_ENV=production node server.js",
     "test": "c8 ava"
   },
+  "repository": "https://github.com/Kiziridis/Wallendar-2.0"
   "nodemonConfig": {
     "env": {
       "NODE_ENV": "development",
       "NODE_OPTIONS": "--trace-warnings"
     },
     "watch": [
-      "src",
-      "server.js",
+      "nodejs-server-server-generated",
+      "index.js",
       ".env"
     ]
   },
