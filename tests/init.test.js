@@ -17,4 +17,9 @@ test.before(async (t) => { // einai async giati tha trexei prin ta tests?? to as
 test.after.always((t) => {
 	t.context.server.close();
 });
-
+test("GET /document", async (t) => {
+	const { body, statusCode } = await t.context.got("document/0", {
+		throwHttpErrors: false // Prevent `got` from rejecting the promise on 400 responses
+	});
+	t.is(statusCode, 400);
+});
