@@ -1,10 +1,10 @@
-import http from "node:http";
+const http from "node:http";
 
-import test from "ava";
-import got from "got";
-import listen from "test-listen";
+const test from "ava";
+const got from "got";
+const listen from "test-listen";
 
-import app from "../index.js";
+const app from "../index.js";
 
 test.before(async (t) => {
 	t.context.server = http.createServer(app);
