@@ -13,8 +13,6 @@ info:
 externalDocs:
   description: Find out more about Swagger
   url: http://swagger.io
-servers:
-- url: https://wallendar.swagger.io/api/v3
 tags:
 - name: Card
   description: Operations about cards.
