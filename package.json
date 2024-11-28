@@ -17,9 +17,7 @@
     },
     "watch": [
       "nodejs-server-server-generated",
-      "index.js",
-      ".env"
-    ]
+      "index.js"    ]
   },
   "prettier": "@iamnapo/prettier-config",
   "eslintConfig": {
