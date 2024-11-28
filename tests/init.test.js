@@ -1,10 +1,8 @@
-const http from "node:http";
+const http = require('node:http');
+const test = require('ava');
+const got = require('got');
 
-const test from "ava";
-const got from "got";
-const listen from "test-listen";
-
-const app from "../index.js";
+const app = require('../index');
 
 test.before(async (t) => {
 	t.context.server = http.createServer(app);
