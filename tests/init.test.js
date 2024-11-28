@@ -7,6 +7,8 @@ const app = require('../index');
 test("A test that passes", (t) => {
 	t.pass();
 });
-
+test("A test that passes", (t) => {
+	t.fail();
+});
 
 
