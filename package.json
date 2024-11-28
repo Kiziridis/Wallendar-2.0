@@ -4,9 +4,10 @@
   "description": "A simple Wallendar API definition",
   "main": "index.js",
   "scripts": {
+	"test" : "c8-ava"
 	"prestart": "npm install",
 	"start": "node index.js"
-  },
+  }
   "keywords": [
     "swagger"
   ],
