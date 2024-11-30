@@ -18,8 +18,8 @@ test.after.always((t) => {
 test("A test that passes", (t) => {
 	t.pass();
 });
-test("GET /api returns correct response and status code", async (t) => {
-	const { body, statusCode } = await t.context.got("api");
+test("GET /users returns correct response and status code", async (t) => {
+	const { body, statusCode } = await t.context.got("users");
 	t.is(body.message, "It works!");
 	t.is(statusCode, 200);
 });
