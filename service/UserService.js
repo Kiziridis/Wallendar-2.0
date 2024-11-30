@@ -26,7 +26,7 @@ exports.searchUsers = function(username) {
 }, {
   "password" : "password",
   "email_address" : "email_address",
-  "userId" : 0,
+  "userId" : 12,
   "preferred_language" : "Greek",
   "username" : "kizi"
 } ];
