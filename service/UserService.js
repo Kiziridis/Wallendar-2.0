@@ -23,12 +23,6 @@ exports.searchUsers = function(username) {
   "userId" : 0,
   "preferred_language" : "Greek",
   "username" : "username"
-}, {
-  "password" : "password",
-  "email_address" : "email_address",
-  "userId" : 12,
-  "preferred_language" : "Greek",
-  "username" : "kizi"
 } ];
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
