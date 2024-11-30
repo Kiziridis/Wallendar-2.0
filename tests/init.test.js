@@ -5,7 +5,7 @@ const got = require('got');
 const app = require('../index');
 
 
-test.before(async (t) => { // einai async giati tha trexei prin ta tests?? to async paei mazi me to await
+test.before(async (t) => { 
 	t.context.server = http.createServer(app);
     const server = t.context.server.listen();
     const { port } = server.address();
