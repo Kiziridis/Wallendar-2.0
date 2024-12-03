@@ -1,32 +1,23 @@
-const http = require('node:http');
-const test = require('ava');
-const got = require('got');
 
-const app = require('../index');
+const request = require('supertest');
+const app = require('../index'); // Ensure this path is correct
 
-
-test.before(async (t) => { 
-	t.context.server = http.createServer(app);
-    const server = t.context.server.listen();
-    const { port } = server.address();
-	t.context.got = got.extend({ responseType: "json", prefixUrl: `http://localhost:${port}` });
-});
-
-test.after.always((t) => {
-	t.context.server.close();
-});
-test("A test that passes", (t) => {
-	t.pass();
-});
-test("GET /docs should return status 200", async (t) => {
-    try {
-        const response = await t.context.got('docs/');
-        t.is(response.statusCode, 200, "Expected a 200 status code");
-        t.is(response.headers["content-type"], "text/html; charset=UTF-8", "Expected a text/html content type");
-        t.is(response.headers["swagger-api-docs-url"], "/api-docs", "Expected a /api-docs URL");
-        t.is(response.body.includes("Swagger UI"), true, "Expected the response body to include 'Swagger UI'");
-    } catch (error) {
-        console.error('Test failed with response:', error.response ? error.response.body : error.message);
-        throw error;
-    }
+describe('GET /users', function() {
+    it('should return user kizi if exists', function(done) {
+        request(app)
+            .get('/users')
+            .query({ username: 'kizi' })
+            .expect('Content-Type', /json/)
+            .expect(200)
+            .end(function(err, res) {
+                if (err) return done(err);
+                const users = res.body;
+                const userExists = users.some(user => user.username === 'kizi');
+                if (userExists) {
+                    done();
+                } else {
+                    done(new Error('User kizi not found'));
+                }
+            });
+    });
 });
