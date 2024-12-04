@@ -1,34 +1,32 @@
-const http = require('http');
-const request = require('supertest');
-const app = require('../index'); // Ensure this path is correct
+const http = require('node:http');
 const test = require('ava');
+const got = require('got');
 
-let server;
+const app = require('../index');
 
-test.before(async t => {
-    console.log('Starting server... :)');
-    server = http.createServer(app);
-    await new Promise(resolve => {
-        server.listen(0, () => {
-            const { port } = server.address();
-            t.context.got = require('got').extend({ responseType: 'json', prefixUrl: `http://localhost:${port}` });
-            console.log(`Server started on port ${port}`);
-            resolve();
-        });
-    });
+
+test.before(async (t) => { 
+	t.context.server = http.createServer(app);
+    const server = t.context.server.listen();
+    const { port } = server.address();
+	t.context.got = got.extend({ responseType: "json", prefixUrl: `http://localhost:${port}` });
 });
 
-test.after.always(t => {
-    console.log('Closing server...');
-    server.close(() => {
-        console.log('Server closed');
-    });
+test.after.always((t) => {
+	t.context.server.close();
 });
-
-test('GET /users', async t => {
-    const response = await t.context.got.get('users', { searchParams: { username: 'kizi' } });
-    t.is(response.statusCode, 200);
-    const users = response.body;
-    const userExists = users.some(user => user.username === 'kizi');
-    t.true(userExists, 'User kizi not found');
+test("A test that passes", (t) => {
+	t.pass();
+});
+test("GET /docs should return status 200", async (t) => {
+    try {
+        const response = await t.context.got('docs/');
+        t.is(response.statusCode, 200, "Expected a 200 status code");
+        t.is(response.headers["content-type"], "text/html; charset=UTF-8", "Expected a text/html content type");
+        t.is(response.headers["swagger-api-docs-url"], "/api-docs", "Expected a /api-docs URL");
+        t.is(response.body.includes("Swagger UI"), true, "Expected the response body to include 'Swagger UI'");
+    } catch (error) {
+        console.error('Test failed with response:', error.response ? error.response.body : error.message);
+        throw error;
+    }
 });

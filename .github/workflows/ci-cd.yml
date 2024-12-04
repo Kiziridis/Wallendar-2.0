@@ -20,11 +20,6 @@ jobs:
       - name: Run tests
         run: npm run test
 
-      - name: Check for hanging processes
-        run: |
-          echo "Checking for hanging processes..."
-          ps aux
-
   cd:
     runs-on: ubuntu-latest
     needs: ci

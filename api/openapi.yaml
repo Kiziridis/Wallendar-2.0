@@ -34,6 +34,11 @@ tags:
   description: Everything about the co-creation of your events.
 - name: Invitation
   description: Everything about your event invitations.
+servers:
+  - url: /
+    description: "Main server"
+  - url: /Wallendar
+    description: "Wallendar 2.0"
 paths:
   /user/{receiverId}/friendRequest:
     post:
@@ -372,7 +377,7 @@ paths:
       summary: Search for other users.
       description: |
         FR5: The user must be able to search for other users by username.
-      operationId: searchUsers
+      operationId: getUsers
       parameters:
       - name: username
         in: query
@@ -1182,14 +1187,14 @@ components:
           participants:
           - password: password
             email_address: email_address
-            userId: 0
+            userId: 1
             preferred_language: Greek
             username: username
           - password: password
             email_address: email_address
-            userId: 0
+            userId: 2
             preferred_language: Greek
-            username: username
+            username: kizi
         - date: 6
           duration: 5
           eventId: 0
