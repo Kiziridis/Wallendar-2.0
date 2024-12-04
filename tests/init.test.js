@@ -1,35 +1,51 @@
-const http = require("http");
-const test = require("ava");
-const got = require("got");
-const app = require("../index");
+const http = require('node:http');
+const test = require('ava');
+const got = require('got');
+const express = require('express');
+const app = require('../index');
 
+const selectCard = require('../service/CardService').selectCard;
 
-test.before(async (t) => { 
-	t.context.server = http.createServer(app);
-    const server = t.context.server.listen();
+test.before(async (t) => {
+    t.context.server = http.createServer(app);
+    const server = t.context.server.listen(0);
     const { port } = server.address();
-	t.context.got = got.extend({ responseType: "json", prefixUrl: `http://localhost:${port}` });
+    t.context.got = got.extend({ prefixUrl: `http://localhost:${port}` });
 });
 
 test.after.always((t) => {
-	t.context.server.close();
+    t.context.server.close();
 });
 
-test("A test that passes", (t) => {
-	t.pass();
+
+
+
+test('GET wallet/{walletId}/card/{cardnumber} Select card from wallet successfully', async (t) => {
+    walletId = 2;
+    cardNumber = 2222333344445555;
+    const response = await t.context.got(`wallet/${walletId}/card/${cardNumber}`, { responseType: 'json' });
+    t.is(response.statusCode, 200);
+    t.deepEqual(response.body, {
+        card_holder: 'John Doe',
+        cvv: 108,
+        cardNumber: 2222333344445555,
+        exp_date: 22042042
+    });
 });
-// test("GET /docs returns correct response and status code", async (t) => {
-// 	const response = await t.context.got('docs/');
-// 	// t.is(body.message, "It works!");
-// 	t.is(response.statusCode, 200, "Expected a 200 status code");
-//     t.is(response.headers["content-type"], "text/html; charset=UTF-8", "Expected a text/html content type");
-//     t.is(response.headers["swagger-api-docs-url"], "/api-docs", "Expected a /api-docs URL");
-//     t.is(response.body.includes("Swagger UI"), true, "Expected the response body to include 'Swagger UI'");
+
+
+
+
+
+// test('GET wallet/{walletId}/card/{cardnumber} not matchind id with owner', async (t) => {
+//     walletId = 2;
+//     cardNumber = 2222333344445555;
+//     const response = await t.context.got(`wallet/${walletId}/card/${cardNumber}`, { responseType: 'json' });
+//     t.is(response.statusCode, 400);
+//     t.deepEqual(response.body, {
+//         card_holder: 'John Doe',
+//         cvv: 108,
+//         cardNumber: 2222333344445555,
+//         exp_date: 22042042
+//     });
 // });
-
-test("GET /docs returns correct response and status code", async (t) => {
-    const response = await t.context.got('docs/', { responseType: "text" }); // Handle HTML response as text
-    t.is(response.statusCode, 200, "Expected a 200 status code");
-    t.is(response.headers["content-type"], "text/html; charset=UTF-8", "Expected a text/html content type");
-    t.true(response.body.includes("Swagger UI"), "Expected the response body to include 'Swagger UI'");
-});
