@@ -1,52 +1,88 @@
 const exampleEvents = [
   {
-    date: "2023-10-01",
-    duration: 2,
-    eventId: 1,
+    date: 20231001, // Number
+    duration: 2, // Number
+    eventId: 1, // Number
     documents: [
-      { documentId: 1 },
-      { documentId: 2 }
+      { documentId: 1 }, // Number
+      { documentId: 2 } // Number
     ],
-    time: "10:00",
-    place: "Conference Room A",
-    title: "Team Meeting",
-    day: "Monday",
+    time: 1000, // Number
+    place: "Conference Room A", // String
+    title: "Team Meeting", // String
+    day: "Monday", // String
     participants: [
-      { participantId: 1, name: "Alice" },
-      { participantId: 2, name: "Bob" }
+      { 
+        password: "password1", // String
+        email_address: "alice@example.com", // String
+        userId: 1, // Number
+        preferred_language: "English", // String
+        username: "alice" // String
+      },
+      { 
+        password: "password2", // String
+        email_address: "bob@example.com", // String
+        userId: 2, // Number
+        preferred_language: "English", // String
+        username: "bob" // String
+      }
     ]
   },
   {
-    date: "2023-10-02",
-    duration: 1,
-    eventId: 2,
+    date: 20231002, // Number
+    duration: 1, // Number
+    eventId: 2, // Number
     documents: [
-      { documentId: 3 }
+      { documentId: 3 } // Number
     ],
-    time: "14:00",
-    place: "Office",
-    title: "Project Update",
-    day: "Tuesday",
+    time: 1400, // Number
+    place: "Office", // String
+    title: "Project Update", // String
+    day: "Tuesday", // String
     participants: [
-      { participantId: 3, name: "Charlie" },
-      { participantId: 4, name: "David" }
+      { 
+        password: "password3", // String
+        email_address: "charlie@example.com", // String
+        userId: 3, // Number
+        preferred_language: "English", // String
+        username: "charlie" // String
+      },
+      { 
+        password: "password4", // String
+        email_address: "david@example.com", // String
+        userId: 4, // Number
+        preferred_language: "English", // String
+        username: "david" // String
+      }
     ]
   },
   {
-    date: "2023-10-03",
-    duration: 3,
-    eventId: 3,
+    date: 20231003, // Number
+    duration: 3, // Number
+    eventId: 3, // Number
     documents: [
-      { documentId: 4 },
-      { documentId: 5 }
+      { documentId: 4 }, // Number
+      { documentId: 5 } // Number
     ],
-    time: "09:00",
-    place: "Online",
-    title: "Client Presentation",
-    day: "Wednesday",
+    time: 900, // Number
+    place: "Online", // String
+    title: "Client Presentation", // String
+    day: "Wednesday", // String
     participants: [
-      { participantId: 5, name: "Eve" },
-      { participantId: 6, name: "Frank" }
+      { 
+        password: "password5", // String
+        email_address: "eve@example.com", // String
+        userId: 5, // Number
+        preferred_language: "English", // String
+        username: "eve" // String
+      },
+      { 
+        password: "password6", // String
+        email_address: "frank@example.com", // String
+        userId: 6, // Number
+        preferred_language: "English", // String
+        username: "frank" // String
+      }
     ]
   }
 ];
@@ -56,19 +92,19 @@ exports.createEvent = function(body) {
   return new Promise(function(resolve, reject) {
     // Validate the input body
     if (!body || typeof body.date !== 'number' || body.date < 0 || 
-      typeof body.duration !== 'number' || body.duration < 0 || 
-      typeof body.eventId !== 'number' || body.eventId < 0 || 
-      typeof body.time !== 'number' || body.time < 0 || 
-      typeof body.place !== 'string' || 
-      typeof body.title !== 'string' || 
-      typeof body.day !== 'string' || 
-      !Array.isArray(body.participants)) {
-    reject({
-      message: "Invalid event data types or negative values",
-      code: 400
-    });
-    return;
-  }
+        typeof body.duration !== 'number' || body.duration < 0 || 
+        typeof body.eventId !== 'number' || body.eventId < 0 || 
+        typeof body.time !== 'number' || body.time < 0 || 
+        typeof body.place !== 'string' || 
+        typeof body.title !== 'string' || 
+        typeof body.day !== 'string' || 
+        !Array.isArray(body.participants)) {
+      reject({
+        message: "Invalid event data types or negative values",
+        code: 400
+      });
+      return;
+    }
 
     
     // Check if the event already exists
