@@ -16,20 +16,20 @@ module.exports.addCard = function addCard (req, res, next, body, walletId) {
 module.exports.removeCard = function removeCard (req, res, next, walletId, cardNumber) {
   Wallet.removeCard(walletId, cardNumber)
     .then(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response, response.code);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response, response.code);
     });
 };
 
 module.exports.useCard = function useCard (req, res, next, body, walletId) {
   Wallet.useCard(body, walletId)
     .then(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response, response.code);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response, response.code);
     });
 };
 

@@ -6,10 +6,10 @@ var Calendar = require('../service/CalendarService');
 module.exports.addAllCalendars = function addAllCalendars (req, res, next, body, userIds, calendarIds) {
   Calendar.addAllCalendars(body, userIds, calendarIds)
     .then(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response, response.code);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response,response.code);
     });
 };
 

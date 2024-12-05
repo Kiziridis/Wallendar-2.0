@@ -97,48 +97,18 @@ exports.addCard = function(body,walletId) {
 //   });
 // }
 
-
-
-
-
-
-
-
-
-
-
-
-
 exports.removeCard = function(walletId, cardNumber) {
   return new Promise(function(resolve, reject) {
     if (wallets[walletId] && wallets[walletId].includes(cardNumber)) {
       wallets[walletId] = wallets[walletId].filter(card => card !== cardNumber);
       resolve({ message: 'Card removed successfully' });
     } else {
-      const error = new Error('Response code 400 (Bad Request): No progress data found for the specified username and day.');
-      reject(error);
+      reject({ message: 'Card not found' ,
+               code: 400 
+              });
     }
   });
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
