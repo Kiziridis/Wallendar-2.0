@@ -166,6 +166,16 @@ test('DELETE document', async (t) => {
 }); 
 
 
+// /*
+// **********************************************************
+// Test for deleting a nonexisting document
+// **********************************************************
+// */
+test('DELETE document nonexisting document', async (t) => {
+    const documentId = 9 ;
+    const response = await t.context.got.delete(`document/${documentId}`, { throwHttpErrors: false}, {responseType: 'json' });
+    t.is(response.statusCode, 400);
+}); 
 
 
 // /*

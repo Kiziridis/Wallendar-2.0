@@ -99,17 +99,26 @@ exports.addDocumentEvent = function(body,calendarId,eventId,documentId) {
  **/
 exports.deleteDocument = function(documentId) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = { };
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } reject({
-      message: "Card not found",
-      code: 400
+    // Find the document index
+    const documentIndex = documents.findIndex(doc => doc.documentId === documentId);
+    if (documentIndex === -1) {
+      reject({
+        message: "Document not found",
+        code: 400
+      });
+      return;
+    }
+
+    // Remove the document from the array
+    documents.splice(documentIndex, 1);
+
+    // Resolve with a success message
+    resolve({
+      message: "Document deleted successfully",
+      code: 200
     });
   });
-}
-
+};
 
 /**
  * Remove a document from an event.
