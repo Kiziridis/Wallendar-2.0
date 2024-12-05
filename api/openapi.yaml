@@ -42,7 +42,7 @@ paths:
       summary: Send a friend request.
       description: |
         FR1: The user must be able to manage friend requests. (send friend request)
-      operationId: SendFriendRequest
+      operationId: sendFriendRequest
       parameters:
       - name: receiverId
         in: path
@@ -69,7 +69,7 @@ paths:
       summary: Receive a friend request.
       description: |
         FR1: The user must be able to manage friend requests. (receive friend request)
-      operationId: ReceiveFriendRequest
+      operationId: receiveFriendRequest
       parameters:
       - name: senderId
         in: path
@@ -102,7 +102,7 @@ paths:
       summary: Accept or decline a friend request.
       description: |
         FR1: The user must be able to manage friend requests. (accept or decline friend request)
-      operationId: AcceptDeclineFriendRequest
+      operationId: acceptDeclineFriendRequest
       parameters:
       - name: friendRequestId
         in: path
@@ -128,7 +128,7 @@ paths:
       summary: Cancel a friend request.
       description: |
         FR1: The user must be able to manage friend requests. (cancel friend request)
-      operationId: CancelFriendRequest
+      operationId: cancelFriendRequest
       parameters:
       - name: friendRequestId
         in: path
@@ -153,7 +153,7 @@ paths:
       summary: Add a new card in your wallet.
       description: |
         FR2: The user must be able to manage their cards. (add card)
-      operationId: AddCard
+      operationId: addCard
       parameters:
       - name: walletId
         in: path
@@ -184,7 +184,7 @@ paths:
       summary: View all cards in your wallet.
       description: |
         FR2: The user must be able to manage their cards. (view cards)
-      operationId: ViewCards
+      operationId: viewCards
       parameters:
       - name: walletId
         in: path
@@ -209,7 +209,7 @@ paths:
       summary: Select a card from your wallet.
       description: |
         FR2: The user must be able to manage their cards. (select card)
-      operationId: SelectCard
+      operationId: selectCard
       parameters:
       - name: walletId
         in: path
@@ -241,7 +241,7 @@ paths:
       summary: Remove a card from your wallet.
       description: |
         FR2: The user must be able to manage their cards. (remove cards)
-      operationId: RemoveCard
+      operationId: removeCard
       parameters:
       - name: walletId
         in: path
@@ -274,7 +274,7 @@ paths:
       summary: Use a card from your wallet.
       description: |
         FR3: The user must be able to use their cards. (use card)
-      operationId: UseCard
+      operationId: useCard
       parameters:
       - name: walletId
         in: path
@@ -301,7 +301,7 @@ paths:
       summary: Add a document to your account.
       description: |
         FR4: The user must be able to manage their documents. (add document)
-      operationId: AddDocument
+      operationId: addDocument
       requestBody:
         content:
           application/json:
@@ -323,7 +323,7 @@ paths:
       summary: View a document in your account.
       description: |
         FR4: The user must be able to manage their documents. (view document)
-      operationId: ViewDocument
+      operationId: viewDocument
       parameters:
       - name: documentId
         in: path
@@ -347,7 +347,7 @@ paths:
       summary: Delete a document from your account.
       description: |
         FR4: The user must be able to manage their documents. (delete document)
-      operationId: DeleteDocument
+      operationId: deleteDocument
       parameters:
       - name: documentId
         in: path
@@ -372,7 +372,7 @@ paths:
       summary: Search for other users.
       description: |
         FR5: The user must be able to search for other users by username.
-      operationId: SearchUsers
+      operationId: searchUsers
       parameters:
       - name: username
         in: query
@@ -397,7 +397,7 @@ paths:
       summary: Create a notification.
       description: |
         FR6: The system must be able to notify the user about their upocoming events (create notification).
-      operationId: Notification
+      operationId: notification
       requestBody:
         content:
           application/json:
@@ -419,7 +419,7 @@ paths:
       summary: Receive a notification.
       description: |
         FR6: The system must be able to notify the user about their upocoming events (receive notification).
-      operationId: Notify
+      operationId: notify
       parameters:
       - name: notificationId
         in: path
@@ -444,7 +444,7 @@ paths:
       summary: Add a new event in your calendar.
       description: |
         FR7: The user must be able to manage an event. (add event)
-      operationId: AddEvent
+      operationId: addEvent
       parameters:
       - name: calendarId
         in: path
@@ -475,7 +475,7 @@ paths:
       summary: Edit an event in your calendar.
       description: |
         FR7: The user must be able to manage an event. (edit event)
-      operationId: EditEvent
+      operationId: editEvent
       parameters:
       - name: calendarId
         in: path
@@ -509,7 +509,7 @@ paths:
       summary: Delete an event from your calendar.
       description: |
         FR7: The user must be able to manage an event. (delete event)
-      operationId: DeleteEvent
+      operationId: deleteEvent
       parameters:
       - name: calendarId
         in: path
@@ -542,7 +542,7 @@ paths:
       summary: Add a document to an event.
       description: |
         FR8: The user must be able to manage their event documents. (add document to event)
-      operationId: AddDocumentEvent
+      operationId: addDocumentEvent
       parameters:
       - name: calendarId
         in: path
@@ -584,7 +584,7 @@ paths:
       summary: Remove a document from an event.
       description: |
         FR8: The user must be able to manage their event documents. (remove document from an event)
-      operationId: DeleteDocumentEvent
+      operationId: deleteDocumentEvent
       parameters:
       - name: calendarId
         in: path
@@ -625,7 +625,7 @@ paths:
       summary: Invite a user to an event.
       description: |
         FR9: The user must be able to manage their event invitations. (invite other user to an event)
-      operationId: InviteEvent
+      operationId: inviteEvent
       parameters:
       - name: inviteeId
         in: path
@@ -668,7 +668,7 @@ paths:
       summary: Receive an event invitation.
       description: |
         FR9: The user must be able to manage their event invitations. (receive invites from other users)
-      operationId: ReceiveEventInvite
+      operationId: receiveEventInvite
       parameters:
       - name: inviterId
         in: path
@@ -717,7 +717,7 @@ paths:
       summary: Cancel an event invitation.
       description: |
         FR9: The user must be able to manage their event invitations. (cancel event invitations)
-      operationId: CancelInvite
+      operationId: cancelInvite
       parameters:
       - name: calendarId
         in: path
@@ -758,7 +758,7 @@ paths:
       summary: Accept or decline an event invitation.
       description: |
         FR9: The user must be able to manage their event invitations. (accept or decline event invitations)
-      operationId: AcceptDeclineEventInvitation
+      operationId: acceptDeclineEventInvitation
       parameters:
       - name: invitationId
         in: path
@@ -785,7 +785,7 @@ paths:
       summary: Find free spots in the user's calendar
       description: |
         FR10: The system must be able to find the free spots in the user's calendar.
-      operationId: FindFreeSpots
+      operationId: findFreeSpots
       parameters:
       - name: calendarId
         in: path
@@ -813,7 +813,7 @@ paths:
       summary: Create an event.
       description: |
         FR11: The user must be able to create an event
-      operationId: CreateEvent
+      operationId: createEvent
       requestBody:
         $ref: '#/components/requestBodies/Event'
       responses:
@@ -831,7 +831,7 @@ paths:
       summary: Find common free spots in the users' calendar
       description: |
         FR12: The system must be able to find the common free spots in the users' calendar.
-      operationId: FindCommonFreeSpots
+      operationId: findCommonFreeSpots
       parameters:
       - name: userIds
         in: path
@@ -871,7 +871,7 @@ paths:
       summary: Send a co-creation request.
       description: |
         FR13: The user must be able to co-create events. (send co-creation request)
-      operationId: SendCoCreationRequest
+      operationId: sendCoCreationRequest
       parameters:
       - name: receiverIds
         in: path
@@ -900,7 +900,7 @@ paths:
       summary: Receive a co-creation request.
       description: |
         FR13: The user must be able to co-create events. (receive co-creation request)
-      operationId: ReceiveCoCreationRequest
+      operationId: receiveCoCreationRequest
       parameters:
       - name: senderId
         in: path
@@ -935,7 +935,7 @@ paths:
       description: |
         FR13: The user must be able to co-create events. (accept - decline co-creation request)
         FR14: The user must be able to approve/ disapprove the suggested timeslot.
-      operationId: CoCreation
+      operationId: coCreation
       parameters:
       - name: coCreationId
         in: path
@@ -970,7 +970,7 @@ paths:
       summary: Add an event to all attendants' calendars.
       description: |
         FR15: The system must be able to add the co-created event in the attendants' calendars.
-      operationId: AddAllCalendars
+      operationId: addAllCalendars
       parameters:
       - name: userIds
         in: path

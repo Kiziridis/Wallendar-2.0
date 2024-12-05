@@ -27,25 +27,57 @@ exports.createEvent = function(body) {
   "participants" : [ {
     "password" : "password",
     "email_address" : "email_address",
-    "userId" : 0,
+    "userId" : 2,
     "preferred_language" : "Greek",
-    "username" : "username"
+    "username" : "kizi"
   }, {
     "password" : "password",
     "email_address" : "email_address",
-    "userId" : 0,
+    "userId" : 3,
     "preferred_language" : "Greek",
-    "username" : "username"
+    "username" : "t"
   } ]
+},
+{
+  "date" : 11,
+  "duration" : 5,
+  "eventId" : 1,
+  "documents" : [ {
+    "documentId" : 1
+  }, {
+    "documentId" : 2
+  } ],
+  "time" : 1,
+  "place" : "place",
+  "title" : "title",
+  "day" : "Monday",
+  "participants" : [ {
+    "password" : "password",
+    "email_address" : "email_address",
+    "userId" : 2,
+    "preferred_language" : "Greek",
+    "username" : "kizi"
+  }, {
+    "password" : "password",
+    "email_address" : "email_address",
+    "userId" : 3,
+    "preferred_language" : "Greek",
+    "username" : "t"
+  } ]
+  };
+  const filteredEvents = examples['application/json'].filter((event) =>
+    event.eventId.includes(eventId)
+  );
+  if (filteredUsers.length > 0) {
+    resolve(filteredUsers);
+  } else {
+    reject({
+      status: 404,
+      message: 'No users found matching the username.',
+    });
+  }
+});
 };
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
-}
-
 
 /**
  * Edit an event in your calendar.
