@@ -4,7 +4,7 @@
 const wallets = [
   {
     walletId: 1,
-    card: [
+    cards: [
      {
       card_holder: "Konstantinos Panagiotou",
       cardNumber: 1111222233334444,
@@ -21,7 +21,7 @@ const wallets = [
   },
   {
     walletId: 2,
-    card: {
+    cards: {
       card_holder: "John Doe",
       cardNumber: 2222333344445555,
       cvv: 108,
@@ -30,7 +30,7 @@ const wallets = [
   },
   {
     walletId: 3,
-    card: {
+    cards: {
       card_holder: "Jane Doe",
       cardNumber: 3333444455556666,
       cvv: 109,
@@ -39,7 +39,7 @@ const wallets = [
   },
   {
     walletId: 4,
-    card: {
+    cards: {
       card_holder: "John Smith",
       cardNumber: 4444555566667777,
       cvv: 110,
@@ -48,11 +48,15 @@ const wallets = [
   },
   {
     walletId: 5,
-    card: {
+    cards: {
       card_holder: "Jane Smith",
       cardNumber: 5555666677778888,
       cvv: 111,
       exp_date: 22072072
+    }
+  },
+  {walletId: 6,
+    cards: {
     }
   }
 ];
