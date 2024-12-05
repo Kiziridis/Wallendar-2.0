@@ -88,7 +88,7 @@ test('DELETE wallet/{walletId}/card/{cardnumber} Card not found walletId does no
     walletId = 20;
     cardNumber = 2222333344445555;
     const response = await t.context.got.delete(`wallet/${walletId}/card/${cardNumber}`, {throwHttpErrors: false},{ responseType: 'json' });
-    t.is(response.statusCode, 400);
+    t.is(response.statusCode, 404);
 });
 
 
