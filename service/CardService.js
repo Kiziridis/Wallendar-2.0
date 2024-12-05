@@ -64,7 +64,7 @@ exports.selectCard = function(walletId, cardNumber) {
     } else {
       reject({
         message: "Card not found",
-        status: 400
+        code: 400
       });
     }
   });

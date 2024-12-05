@@ -33,19 +33,25 @@ test('GET wallet/{walletId}/card/{cardnumber} Select card from wallet successful
     });
 });
 
+test('GET wallet/{walletId}/card/{cardnumber} not matchind id with owner', async (t) => {
+    walletId = 20;
+    cardNumber = 2222333344445555;
+    const {body, statusCode} = await t.context.got(`wallet/${walletId}/card/${cardNumber}`, { throwHttpErrors: false, responseType: 'json' });
+    t.is(statusCode, 400);
+    // t.deepEqual(response.body, {
+    //     card_holder: 'John Doe',
+    //     cvv: 108,
+    //     cardNumber: 2222333344445555,
+    //     exp_date: 22042042
+    // });
+});
 
 
 
-
-// test('GET wallet/{walletId}/card/{cardnumber} not matchind id with owner', async (t) => {
-//     walletId = 2;
+// test('DELETE wallet/{walletId}/card/{cardnumber} Remove card from wallet successfully', async (t) => {
+//     walletId = 20;
 //     cardNumber = 2222333344445555;
-//     const response = await t.context.got(`wallet/${walletId}/card/${cardNumber}`, { responseType: 'json' });
-//     t.is(response.statusCode, 400);
-//     t.deepEqual(response.body, {
-//         card_holder: 'John Doe',
-//         cvv: 108,
-//         cardNumber: 2222333344445555,
-//         exp_date: 22042042
-//     });
+//     const response = await t.context.got.delete(`wallet/${walletId}/card/${cardNumber}`, { responseType: 'json' });
+//     t.is(response.statusCode, 200);
+//     t.deepEqual(response.body, {});
 // });
