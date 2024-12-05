@@ -4,12 +4,20 @@
 const wallets = [
   {
     walletId: 1,
-    card: {
+    card: [
+     {
       card_holder: "Konstantinos Panagiotou",
       cardNumber: 1111222233334444,
       cvv: 107,
       exp_date: 22032032
+    },
+    {
+      card_holder: "Konstantinos Panagiotou",
+      cardNumber: 5555666677778888,
+      cvv: 110,
+      exp_date: 22062062
     }
+  ]
   },
   {
     walletId: 2,

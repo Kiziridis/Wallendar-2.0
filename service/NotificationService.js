@@ -12,20 +12,16 @@
 exports.notification = function(body) {
   return new Promise(function(resolve, reject) {
     const { notificationTime, notificationId } = body;
-    examples['application/json'] = { };
-    if (
-      typeof notificationTime === 'number' &&
-      typeof notificationId === 'number'  
-    ) { 
-      resolve( {message: 'Notification created successfully'});
+    if (!Number.isInteger(notificationTime) || !Number.isInteger(notificationId) || notificationTime <= 0 || notificationTime >= 24 || notificationId <= 0) {
+      reject({
+        message: 'Invalid notification parameters',
+        code: 400
+      });
     } else {
-      console.log('Notification not created');
-      reject(
-          
-        { message: 'Card not found' ,
-         code: 400 ,
-         
-        });
+      resolve({
+        message: 'Notification created',
+        code: 200
+      });
     }
   });
 }
@@ -40,16 +36,24 @@ exports.notification = function(body) {
  **/
 exports.notify = function(notificationId) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "notificationTime" : 6,
-  "notificationId" : 0
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
+    if (Number.isInteger(notificationId) && notificationId > 0 && notifications[notificationId]) {
+      resolve(notifications[notificationId]);
     } else {
-      resolve();
+      reject({
+        message: 'Notification not found',
+        code: 400
+      });
     }
   });
 }
 
+const notifications = {
+  1: {
+    notificationTime: 6,
+    notificationId: 1
+  },
+  2: {
+    notificationTime: 10,
+    notificationId: 2
+  }
+}
