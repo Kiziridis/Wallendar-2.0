@@ -1,6 +1,56 @@
 'use strict';
 
 
+const wallets = [
+  {
+    walletId: 1,
+    card: {
+      card_holder: "Konstantinos Panagiotou",
+      cardNumber: 1111222233334444,
+      cvv: 107,
+      exp_date: 22032032
+    }
+  },
+  {
+    walletId: 2,
+    card: {
+      card_holder: "John Doe",
+      cardNumber: 2222333344445555,
+      cvv: 108,
+      exp_date: 22042042
+    }
+  },
+  {
+    walletId: 3,
+    card: {
+      card_holder: "Jane Doe",
+      cardNumber: 3333444455556666,
+      cvv: 109,
+      exp_date: 22052052
+    }
+  },
+  {
+    walletId: 4,
+    card: {
+      card_holder: "John Smith",
+      cardNumber: 4444555566667777,
+      cvv: 110,
+      exp_date: 22062062
+    }
+  },
+  {
+    walletId: 5,
+    card: {
+      card_holder: "Jane Smith",
+      cardNumber: 5555666677778888,
+      cvv: 111,
+      exp_date: 22072072
+    }
+  }
+];
+
+
+
 /**
  * Add a new card in your wallet.
  * FR2: The user must be able to manage their cards. (add card) 
@@ -35,17 +85,31 @@ exports.addCard = function(body,walletId) {
  * cardNumber Integer Number of a user's card
  * returns Success
  **/
-exports.removeCard = function(walletId,cardNumber) {
+// exports.removeCard = function(walletId,cardNumber) {
+//   return new Promise(function(resolve, reject) {
+//     var examples = {};
+//     examples['application/json'] = { };
+//     if (Object.keys(examples).length > 0) {
+//       resolve(examples[Object.keys(examples)[0]]);
+//     } else {
+//       resolve();
+//     }
+//   });
+// }
+
+exports.removeCard = function(walletId, cardNumber) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = { };
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
+    if (wallets[walletId] && wallets[walletId].includes(cardNumber)) {
+      wallets[walletId] = wallets[walletId].filter(card => card !== cardNumber);
+      resolve({ message: 'Card removed successfully' });
     } else {
-      resolve();
+      reject({ message: 'Card not found' ,
+               code: 400 
+              });
     }
   });
 }
+
 
 
 /**
@@ -97,4 +161,3 @@ exports.viewCards = function(walletId) {
     }
   });
 }
-
