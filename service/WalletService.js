@@ -168,4 +168,3 @@ exports.viewCards = function(walletId) {
     }
   });
 }
-

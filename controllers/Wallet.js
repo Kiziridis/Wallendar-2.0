@@ -7,10 +7,10 @@ var Card = require('../service/CardService');
 module.exports.addCard = function addCard (req, res, next, body, walletId) {
   Wallet.addCard(body, walletId)
     .then(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson( res, response, response.code);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response,response.code);
     });
 };
 
@@ -37,9 +37,9 @@ module.exports.useCard = function useCard (req, res, next, body, walletId) {
 module.exports.viewCards = function viewCards (req, res, next, walletId) {
   Wallet.viewCards(walletId)
     .then(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response, response.code);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response, response.code);
     });
 };

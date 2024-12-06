@@ -1,5 +1,21 @@
 'use strict';
-
+const documents = [
+  {
+    documentId: 0
+  },
+  {
+    documentId: 1
+  },
+  {
+    documentId: 2
+  },
+  {
+    documentId: 3
+  },
+  {
+    documentId: 4
+  }
+];
 
 /**
  * Add a document to your account.
@@ -8,21 +24,57 @@
  * body Document 
  * returns Document
  **/
+// exports.addDocument = function(body) {
+//   return new Promise(function(resolve, reject) {
+//     var examples = {};
+//     examples['application/json'] = {
+//   "documentId" : 0
+// };
+//     if (Object.keys(examples).length > 0) {
+//       resolve(examples[Object.keys(examples)[0]]);
+//     } reject({
+//       message: "Document not found",
+//       code: 400
+//     });
+//   });
+// }
+
 exports.addDocument = function(body) {
   return new Promise(function(resolve, reject) {
+    // Validate document ID
+    if (!body.documentId || typeof body.documentId !== 'number' || body.documentId <= 0) {
+      return reject({
+        message: "Invalid document ID",
+        code: 400
+      });
+    }
+
+    // Check if document ID already exists
+    if (documents.some(doc => doc.documentId === body.documentId)) {
+      return reject({
+        message: "Document ID already exists",
+        code: 400
+      });
+    }
+
+    // Add the document to the documents array
+    documents.push(body);
+
     var examples = {};
     examples['application/json'] = {
-  "documentId" : 0
-};
+      "documentId" : body.documentId
+    };
+
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {
-      resolve();
+      reject({
+        message: "Document not found",
+        code: 400
+      });
     }
   });
 }
-
-
 /**
  * Add a document to an event.
  * FR8: The user must be able to manage their event documents. (add document to event) 
@@ -65,9 +117,10 @@ exports.addDocumentEvent = function(body,calendarId,eventId,documentId) {
 };
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
+    } reject({
+      message: "Card not found",
+      code: 400
+    });
   });
 }
 
@@ -81,16 +134,26 @@ exports.addDocumentEvent = function(body,calendarId,eventId,documentId) {
  **/
 exports.deleteDocument = function(documentId) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = { };
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
+    // Find the document index
+    const documentIndex = documents.findIndex(doc => doc.documentId === documentId);
+    if (documentIndex === -1) {
+      reject({
+        message: "Document not found",
+        code: 400
+      });
+      return;
     }
-  });
-}
 
+    // Remove the document from the array
+    documents.splice(documentIndex, 1);
+
+    // Resolve with a success message
+    resolve({
+      message: "Document deleted successfully",
+      code: 200
+    });
+  });
+};
 
 /**
  * Remove a document from an event.
@@ -107,9 +170,10 @@ exports.deleteDocumentEvent = function(calendarId,eventId,documentId) {
     examples['application/json'] = { };
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
+    } reject({
+      message: "Card not found",
+      code: 400
+    });
   });
 }
 
@@ -123,15 +187,23 @@ exports.deleteDocumentEvent = function(calendarId,eventId,documentId) {
  **/
 exports.viewDocument = function(documentId) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "documentId" : 0
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
+    if (!Number.isInteger(documentId) || documentId <= 0) {
+      reject({
+        message: "Invalid document ID",
+        code: 400
+      });
+      return;
+    }
+    const document = documents.find(doc => doc.documentId === documentId);
+    if (document) {
+      resolve(document);
     } else {
-      resolve();
+      console.log("Document not found");
+      reject({
+        message: "Document not found",
+        code: 400
+      });
     }
   });
-}
+};
 
