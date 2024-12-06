@@ -20,6 +20,12 @@ jobs:
       - name: Run tests
         run: npm run test
 
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+        start: npm start
+        wait-on: 'http://localhost:8080/docs' 
+
       - name: Check for hanging processes
         run: |
           echo "Checking for hanging processes..."

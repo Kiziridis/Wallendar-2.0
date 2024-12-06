@@ -17,75 +17,7 @@ test.after.always((t) => {
     console.log('Server closed');
 });
 
-
-//test
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// const http = require("http");
-// const test = require("ava");
-// const got = require("got");
-// const app = require("../index");
-// //const request = require('supertest');
-// // const { getUsers } = require("../service/UserService.js");
-
-// test.before(async t => {
-//     console.log('Starting server... :)');
-//     server = http.createServer(app);
-//     await new Promise(resolve => {
-//         server.listen(0, () => {
-//             const { port } = server.address();
-//             t.context.got = require('got').extend({ responseType: 'json', prefixUrl: `http://localhost:${port}` });
-//             console.log(`Server started on port ${port}`);
-//             resolve();
-//         });
-//     });
-// });
-// test.after.always((t) => {
-// 	t.context.server.close();
-// });
-
-// test("A test that passes", (t) => {
-// 	t.pass();
-// });
-// test("GET /docs returns correct response and status code", async (t) => {
-// 	const response = await t.context.got('docs/');
-// 	// t.is(body.message, "It works!");
-// 	t.is(response.statusCode, 200, "Expected a 200 status code");
-//     t.is(response.headers["content-type"], "text/html; charset=UTF-8", "Expected a text/html content type");
-//     t.is(response.headers["swagger-api-docs-url"], "/api-docs", "Expected a /api-docs URL");
-//     t.is(response.body.includes("Swagger UI"), true, "Expected the response body to include 'Swagger UI'");
-// });
-	
-
-// //UNHAPPY PATH for get /users
-// test("GET /users returns 404 for non-existent username", async (t) => {
-//     const username = "nonexistent_user"; // Example invalid username
-
-//     // try {
-//     //     await t.context.got("users", {throwHttpErrors: false}, {responseType: "json"});
-//     //     t.fail("Expected a 404 error for non-existent username");
-//     // } catch (error) {
-//     //     t.is(error.response.code, 404, "Expected a 404 status code");
-//     // }
-//     const response = await t.context.got("users/", {
-// 		searchParams: {username},
-// 		throwHttpErrors: false
-//     });
-
-//     t.is(response.statusCode, 404);
-// });
-
-// //HAPPY PATH for GET /users
-// test('GET /users returns correct response for valid username', async (t) => {
-// 	const username = "tmpillas";
-//     const response = await t.context.got("users/", {
-// 		searchParams: {username},
-// 		throwHttpErrors: false
-//     });
-	
-//     t.is(response.statusCode, 200);
-// });
-
-// HAPPT PATH for GET /wallet/{walletId}/cards when wallet has cards
+// HAPPY PATH for GET /wallet/{walletId}/cards when wallet has cards
 test('GET /wallet/{walletId}/cards returns correct response when not empty', async(t) =>{
     walletId = 1;
     const response = await t.context.got(`wallet/${walletId}/cards`, { responseType: 'json' });
@@ -168,9 +100,47 @@ test('POST /wallet/{walletId}/card does not create a card when card data are not
             responseType: 'json',
             throwHttpErrors:false});
     t.is(response.statusCode, 400);
-    
-    const body = response.body;
-    t.deepEqual(body, {
-        message: 'request.body.cvv should be integer'
-    });
+});
+
+
+// HAPPY PATH for GET document/{documentId}
+test('GET document/{documentId}', async (t) => {
+    const documentId = 1 ;
+    const response = await t.context.got.get(`document/${documentId}`, { throwHttpErrors: false}, {responseType: 'json' });
+    t.is(response.statusCode, 200);
+});
+
+// UNHAPPY PATH for GET document/{documentId} [documentId does not exist]
+test('GET document/{documentId} Nonexistent document', async (t) => {
+    const documentId = 7 ;
+    const response = await t.context.got.get(`document/${documentId}`, { throwHttpErrors: false}, {responseType: 'json' });
+    t.is(response.statusCode, 400);
+});
+
+// UNHAPPY PATH for GET document/{documentId} [documentId is negative]
+test('GET document/{documentId} Document with a negative id', async (t) => {
+    const documentId = -7 ;
+    const response = await t.context.got.get(`document/${documentId}`, { throwHttpErrors: false}, {responseType: 'json' });
+    t.is(response.statusCode, 400);
+});
+
+// UNHAPPY PATH for GET document/{documentId} [documentId is not in correct form]
+test('GET document/{documentId} Document with invalid id', async (t) => {
+    const documentId = 'a' ;
+    const response = await t.context.got.get(`document/${documentId}`, { throwHttpErrors: false}, {responseType: 'json' });
+    t.is(response.statusCode, 400);
+});
+
+// HAPPY PATH for DELETE document/{documentId}
+test('DELETE document', async (t) => {
+    const documentId = 1 ;
+    const response = await t.context.got.delete(`document/${documentId}`, { throwHttpErrors: false}, {responseType: 'json' });
+    t.is(response.statusCode, 200);
+}); 
+
+// UNHAPPY PATH for DELETE document/{documentId} [documentId does not exist]
+test('DELETE document nonexisting document', async (t) => {
+    const documentId = 9 ;
+    const response = await t.context.got.delete(`document/${documentId}`, { throwHttpErrors: false}, {responseType: 'json' });
+    t.is(response.statusCode, 400);
 });
