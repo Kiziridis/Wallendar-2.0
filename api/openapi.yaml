@@ -33,7 +33,7 @@ tags:
 - name: CoCreationRequest
   description: Everything about the co-creation of your events.
 - name: Invitation
-  description: Everything about your event invitations.
+  description: Everything about your event invitations."
 paths:
   /user/{receiverId}/friendRequest:
     post:
@@ -1182,14 +1182,14 @@ components:
           participants:
           - password: password
             email_address: email_address
-            userId: 0
+            userId: 1
             preferred_language: Greek
             username: username
           - password: password
             email_address: email_address
-            userId: 0
+            userId: 2
             preferred_language: Greek
-            username: username
+            username: kizi
         - date: 6
           duration: 5
           eventId: 0

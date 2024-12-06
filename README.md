@@ -5,6 +5,7 @@ An interactive callendar-wallet app designed for the purposes of a software engi
 
 The server was generated using Swaggerhub, from the .json file produced for the purposes of lasts semester's software course.
 
+
 ## Running the server
 To run the server, run:
 

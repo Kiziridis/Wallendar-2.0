@@ -23,13 +23,8 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
-        start: npm start
-        wait-on: 'http://localhost:8080/docs' 
-
-      - name: Check for hanging processes
-        run: |
-          echo "Checking for hanging processes..."
-          ps aux
+          start: npm start
+          wait-on: 'http://localhost:8080/docs' 
 
   cd:
     runs-on: ubuntu-latest

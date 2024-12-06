@@ -1,6 +1,7 @@
 'use strict';
 
 
+
 /**
  * Create a notification.
  * FR6: The system must be able to notify the user about their upocoming events (create notification). 
@@ -10,12 +11,17 @@
  **/
 exports.notification = function(body) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = { };
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
+    const { notificationTime, notificationId } = body;
+    if (!Number.isInteger(notificationTime) || !Number.isInteger(notificationId) || notificationTime <= 0 || notificationTime >= 24 || notificationId <= 0) {
+      reject({
+        message: 'Invalid notification parameters',
+        code: 400
+      });
     } else {
-      resolve();
+      resolve({
+        message: 'Notification created',
+        code: 200
+      });
     }
   });
 }
@@ -30,16 +36,24 @@ exports.notification = function(body) {
  **/
 exports.notify = function(notificationId) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "notificationTime" : 6,
-  "notificationId" : 0
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
+    if (Number.isInteger(notificationId) && notificationId > 0 && notifications[notificationId]) {
+      resolve(notifications[notificationId]);
     } else {
-      resolve();
+      reject({
+        message: 'Notification not found',
+        code: 400
+      });
     }
   });
 }
 
+const notifications = {
+  1: {
+    notificationTime: 6,
+    notificationId: 1
+  },
+  2: {
+    notificationTime: 10,
+    notificationId: 2
+  }
+}

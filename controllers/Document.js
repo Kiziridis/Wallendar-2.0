@@ -39,7 +39,7 @@ module.exports.deleteDocumentEvent = function deleteDocumentEvent (req, res, nex
       utils.writeJson(res, response, response.code);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response, response.code);
     });
 };
 

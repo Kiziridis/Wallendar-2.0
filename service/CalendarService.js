@@ -1,6 +1,64 @@
 'use strict';
+const Events = [
+  {
+    date: 20231001,
+    duration: 2,
+    eventId: 1,
+    documents: [
+      { documentId: 1 },
+      { documentId: 2 }
+    ],
+    time: 10,
+    place: "Conference Room A",
+    title: "Team Meeting",
+    day: "Monday",
+    participants: [
+      { participantId: 1, name: "Alice" },
+      { participantId: 2, name: "Bob" }
+    ]
+  },
+  {
+    date: 20231002,
+    duration: 1,
+    eventId: 2,
+    documents: [
+      { documentId: 3 }
+    ],
+    time: 14,
+    place: "Office",
+    title: "Project Update",
+    day: "Tuesday",
+    participants: [
+      { participantId: 3, name: "Charlie" },
+      { participantId: 4, name: "David" }
+    ]
+  },
+  {
+    date: 20231003,
+    duration: 3,
+    eventId: 3,
+    documents: [
+      { documentId: 4 },
+      { documentId: 5 }
+    ],
+    time: 9,
+    place: "Online",
+    title: "Client Presentation",
+    day: "Wednesday",
+    participants: [
+      { participantId: 5, name: "Eve" },
+      { participantId: 6, name: "Frank" }
+    ]
+  }
+];
+
+const exampleCalendars = {
+  1: [Events[0], Events[1]],
+  2: [Events[2]]
+};
 
 
+// module.exports = { Events, exampleCalendars };
 /**
  * Add an event to all attendants' calendars.
  * FR15: The system must be able to add the co-created event in the attendants' calendars. 
@@ -10,138 +68,49 @@
  * calendarIds List Ids of the users calendars
  * returns Calendars
  **/
-exports.addAllCalendars = function(body,userIds,calendarIds) {
+exports.addAllCalendars = function(body, userIds, calendarIds) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = [ {
-  "date" : 5,
-  "calendarId" : 0,
-  "month" : 6,
-  "year" : 1,
-  "time" : 5,
-  "Day" : "Monday",
-  "events" : [ {
-    "date" : 6,
-    "duration" : 5,
-    "eventId" : 0,
-    "documents" : [ {
-      "documentId" : 0
-    }, {
-      "documentId" : 0
-    } ],
-    "time" : 1,
-    "place" : "place",
-    "title" : "title",
-    "day" : "Monday",
-    "participants" : [ {
-      "password" : "password",
-      "email_address" : "email_address",
-      "userId" : 0,
-      "preferred_language" : "Greek",
-      "username" : "username"
-    }, {
-      "password" : "password",
-      "email_address" : "email_address",
-      "userId" : 0,
-      "preferred_language" : "Greek",
-      "username" : "username"
-    } ]
-  }, {
-    "date" : 6,
-    "duration" : 5,
-    "eventId" : 0,
-    "documents" : [ {
-      "documentId" : 0
-    }, {
-      "documentId" : 0
-    } ],
-    "time" : 1,
-    "place" : "place",
-    "title" : "title",
-    "day" : "Monday",
-    "participants" : [ {
-      "password" : "password",
-      "email_address" : "email_address",
-      "userId" : 0,
-      "preferred_language" : "Greek",
-      "username" : "username"
-    }, {
-      "password" : "password",
-      "email_address" : "email_address",
-      "userId" : 0,
-      "preferred_language" : "Greek",
-      "username" : "username"
-    } ]
-  } ]
-}, {
-  "date" : 5,
-  "calendarId" : 0,
-  "month" : 6,
-  "year" : 1,
-  "time" : 5,
-  "Day" : "Monday",
-  "events" : [ {
-    "date" : 6,
-    "duration" : 5,
-    "eventId" : 0,
-    "documents" : [ {
-      "documentId" : 0
-    }, {
-      "documentId" : 0
-    } ],
-    "time" : 1,
-    "place" : "place",
-    "title" : "title",
-    "day" : "Monday",
-    "participants" : [ {
-      "password" : "password",
-      "email_address" : "email_address",
-      "userId" : 0,
-      "preferred_language" : "Greek",
-      "username" : "username"
-    }, {
-      "password" : "password",
-      "email_address" : "email_address",
-      "userId" : 0,
-      "preferred_language" : "Greek",
-      "username" : "username"
-    } ]
-  }, {
-    "date" : 6,
-    "duration" : 5,
-    "eventId" : 0,
-    "documents" : [ {
-      "documentId" : 0
-    }, {
-      "documentId" : 0
-    } ],
-    "time" : 1,
-    "place" : "place",
-    "title" : "title",
-    "day" : "Monday",
-    "participants" : [ {
-      "password" : "password",
-      "email_address" : "email_address",
-      "userId" : 0,
-      "preferred_language" : "Greek",
-      "username" : "username"
-    }, {
-      "password" : "password",
-      "email_address" : "email_address",
-      "userId" : 0,
-      "preferred_language" : "Greek",
-      "username" : "username"
-    } ]
-  } ]
-} ];
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
+    // Validate the input body
+    if (!body || typeof body.date !== 'number' || body.date < 0 || 
+        typeof body.duration !== 'number' || body.duration < 0 || 
+        typeof body.eventId !== 'number' || body.eventId < 0 || 
+        typeof body.time !== 'number' || body.time < 0 || 
+        typeof body.place !== 'string' || 
+        typeof body.title !== 'string' || 
+        typeof body.day !== 'string' || 
+        !Array.isArray(body.participants)) {
+      reject({
+        message: "Invalid event data types or negative values",
+        code: 400
+      });
+      return;
     }
-  });
-}
 
+    // Create the event
+    const event = {
+      date: body.date,
+      duration: body.duration,
+      eventId: body.eventId,
+      documents: body.documents || [],
+      time: body.time,
+      place: body.place,
+      title: body.title,
+      day: body.day,
+      participants: body.participants
+    };
+
+    // Add the event to each specified calendar
+    calendarIds.forEach(calendarId => {
+      if (!exampleCalendars[calendarId]) {
+        exampleCalendars[calendarId] = [];
+      }
+      exampleCalendars[calendarId].push(event);
+    });
+
+    // Resolve with the updated calendars
+    resolve(exampleCalendars);
+  });
+};
 
 /**
  * Add a new event in your calendar.
@@ -151,45 +120,65 @@ exports.addAllCalendars = function(body,userIds,calendarIds) {
  * calendarId Integer Id of the user's calendar
  * returns Event
  **/
-exports.addEvent = function(body,calendarId) {
+
+exports.addEvent = function(body, calendarId) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "date" : 6,
-  "duration" : 5,
-  "eventId" : 0,
-  "documents" : [ {
-    "documentId" : 0
-  }, {
-    "documentId" : 0
-  } ],
-  "time" : 1,
-  "place" : "place",
-  "title" : "title",
-  "day" : "Monday",
-  "participants" : [ {
-    "password" : "password",
-    "email_address" : "email_address",
-    "userId" : 0,
-    "preferred_language" : "Greek",
-    "username" : "username"
-  }, {
-    "password" : "password",
-    "email_address" : "email_address",
-    "userId" : 0,
-    "preferred_language" : "Greek",
-    "username" : "username"
-  } ]
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
+    // Validate the input body
+    if (!body || typeof body.date !== 'number' || body.date < 0 || 
+        typeof body.duration !== 'number' || body.duration < 0 || 
+        typeof body.eventId !== 'number' || body.eventId < 0 || 
+        typeof body.time !== 'number' || body.time < 0 || 
+        typeof body.place !== 'string' || 
+        typeof body.title !== 'string' || 
+        typeof body.day !== 'string' || 
+        !Array.isArray(body.participants)) {
+      reject({
+        message: "Invalid event data types or negative values",
+        code: 400
+      });
+      return;
     }
+     // Check if the calendar exists
+     if (!exampleCalendars[calendarId]) {
+      reject({
+        message: "Calendar does not exist",
+        code: 400
+      });
+      return;
+    }
+
+    // Check if the event already exists in the calendar
+    if (exampleCalendars[calendarId] && exampleCalendars[calendarId].find(e => e.eventId === body.eventId)) {
+      reject({
+        message: "Event already exists in the calendar",
+        code: 400
+      });
+      return;
+    }
+
+    // Create the event
+    const event = {
+      date: body.date,
+      duration: body.duration,
+      eventId: body.eventId,
+      documents: body.documents || [],
+      time: body.time,
+      place: body.place,
+      title: body.title,
+      day: body.day,
+      participants: body.participants
+    };
+
+    // Add the event to the calendar
+    if (!exampleCalendars[calendarId]) {
+      exampleCalendars[calendarId] = [];
+    }
+    exampleCalendars[calendarId].push(event);
+
+    // Resolve with the created event
+    resolve(event);
   });
-}
-
-
+};
 /**
  * Delete an event from your calendar.
  * FR7: The user must be able to manage an event. (delete event) 
@@ -198,18 +187,38 @@ exports.addEvent = function(body,calendarId) {
  * eventId Integer Id of the event that needs to be deleted
  * returns Success
  **/
-exports.deleteEvent = function(calendarId,eventId) {
+
+exports.deleteEvent = function(calendarId, eventId) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = { };
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
+    // Check if the calendar exists
+    if (!exampleCalendars[calendarId]) {
+      reject({
+        message: "Calendar does not exist",
+        code: 400
+      });
+      return;
     }
+
+    // Find the event index in the calendar
+    const eventIndex = exampleCalendars[calendarId].findIndex(e => e.eventId === eventId);
+    if (eventIndex === -1) {
+      reject({
+        message: "Event not found in the calendar",
+        code: 400
+      });
+      return;
+    }
+
+    // Remove the event from the calendar
+    exampleCalendars[calendarId].splice(eventIndex, 1);
+
+    // Resolve with a success message
+    resolve({
+      message: "Event deleted successfully",
+      code: 200
+    });
   });
 }
-
 
 /**
  * Find common free spots in the users' calendar
