@@ -611,7 +611,7 @@ Test for adding a document that already exists
 
 test('POST document already existing document', async (t) => {
     const document = {
-        documentId: 1
+        documentId: 0
     };
 
     const response = await t.context.got.post('document', {
@@ -733,7 +733,7 @@ test('POST /wallet/{walletId}/card does not create a card when card data are not
 
 // HAPPY PATH for GET document/{documentId}
 test('GET document/{documentId}', async (t) => {
-    const documentId = 1 ;
+    const documentId = 2 ;
     const response = await t.context.got.get(`document/${documentId}`, { throwHttpErrors: false}, {responseType: 'json' });
     t.is(response.statusCode, 200);
 });
