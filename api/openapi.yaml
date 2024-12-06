@@ -33,12 +33,7 @@ tags:
 - name: CoCreationRequest
   description: Everything about the co-creation of your events.
 - name: Invitation
-  description: Everything about your event invitations.
-servers:
-  - url: /
-    description: "Main server"
-  - url: /Wallendar
-    description: "Wallendar 2.0"
+  description: Everything about your event invitations."
 paths:
   /user/{receiverId}/friendRequest:
     post:
