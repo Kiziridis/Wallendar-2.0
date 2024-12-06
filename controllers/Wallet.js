@@ -7,10 +7,10 @@ var Card = require('../service/CardService');
 module.exports.addCard = function addCard (req, res, next, body, walletId) {
   Wallet.addCard(body, walletId)
     .then(function (response) {
-      utils.writeJson( res, response, response.code);
+      utils.writeJson(res, response, response.code);
     })
     .catch(function (response) {
-      utils.writeJson(res, response,response.code);
+      utils.writeJson(res, response, response.code);
     });
 };
 

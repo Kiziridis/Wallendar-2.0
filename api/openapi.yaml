@@ -372,7 +372,7 @@ paths:
       summary: Search for other users.
       description: |
         FR5: The user must be able to search for other users by username.
-      operationId: getUsers
+      operationId: searchUsers
       parameters:
       - name: username
         in: query

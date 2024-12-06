@@ -1,6 +1,5 @@
 'use strict';
 
-
 /**
  * Search for other users.
  * FR5: The user must be able to search for other users by username. 
@@ -11,24 +10,39 @@
 exports.searchUsers = function(username) {
   return new Promise(function(resolve, reject) {
     var examples = {};
-    examples['application/json'] = [ {
-  "password" : "password",
-  "email_address" : "email_address",
-  "userId" : 0,
-  "preferred_language" : "Greek",
-  "username" : "username"
-}, {
-  "password" : "password",
-  "email_address" : "email_address",
-  "userId" : 0,
-  "preferred_language" : "Greek",
-  "username" : "username"
-} ];
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
+    examples['application/json'] = [
+      {
+        password: 'password',
+        email_address: 'john@example.com',
+        userId: 1,
+        preferred_language: 'Greek',
+        username: 'john-doe'
+      },
+      {
+        password: 'password',
+        email_address: 'kizi@example.com',
+        userId: 2,
+        preferred_language: 'Greek',
+        username: 'kizi'
+      },
+      {
+        password: 'password',
+        email_address: 't@example.com',
+        userId: 4,
+        preferred_language: 'Greek',
+        username: 'tmpillas'
+      }
+    ];
+    const filteredUsers = examples['application/json'].filter((user) =>
+      user.username.includes(username)
+    );
+    if (filteredUsers.length > 0) {
+      resolve(filteredUsers);
     } else {
-      resolve();
+      reject({
+        code: 404,
+        message: 'No users found matching the username.',
+      });
     }
   });
-}
-
+};
