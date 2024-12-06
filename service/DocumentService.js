@@ -24,22 +24,57 @@ const documents = [
  * body Document 
  * returns Document
  **/
+// exports.addDocument = function(body) {
+//   return new Promise(function(resolve, reject) {
+//     var examples = {};
+//     examples['application/json'] = {
+//   "documentId" : 0
+// };
+//     if (Object.keys(examples).length > 0) {
+//       resolve(examples[Object.keys(examples)[0]]);
+//     } reject({
+//       message: "Document not found",
+//       code: 400
+//     });
+//   });
+// }
+
 exports.addDocument = function(body) {
   return new Promise(function(resolve, reject) {
+    // Validate document ID
+    if (!body.documentId || typeof body.documentId !== 'number' || body.documentId <= 0) {
+      return reject({
+        message: "Invalid document ID",
+        code: 400
+      });
+    }
+
+    // Check if document ID already exists
+    if (documents.some(doc => doc.documentId === body.documentId)) {
+      return reject({
+        message: "Document ID already exists",
+        code: 400
+      });
+    }
+
+    // Add the document to the documents array
+    documents.push(body);
+
     var examples = {};
     examples['application/json'] = {
-  "documentId" : 0
-};
+      "documentId" : body.documentId
+    };
+
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
-    } reject({
-      message: "Card not found",
-      code: 400
-    });
+    } else {
+      reject({
+        message: "Document not found",
+        code: 400
+      });
+    }
   });
 }
-
-
 /**
  * Add a document to an event.
  * FR8: The user must be able to manage their event documents. (add document to event) 

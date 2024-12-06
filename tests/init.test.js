@@ -19,78 +19,6 @@ test.after.always((t) => {
     console.log('Server closed');
 });
 
-
-/*
-**********************************************************
-Test viewing a document
-**********************************************************
-*/
-
-test('GET document/${documentId}', async (t) => {
-    const documentId = 1 ;
-    const response = await t.context.got.get(`document/${documentId}`, { throwHttpErrors: false}, {responseType: 'json' });
-    t.is(response.statusCode, 200);
-});
-
-// /*
-// **********************************************************
-// Test for viewing a document that does not exist
-// **********************************************************
-// */
-test('GET document/${documentId} Nonexistent document', async (t) => {
-    const documentId = 7 ;
-    const response = await t.context.got.get(`document/${documentId}`, { throwHttpErrors: false}, {responseType: 'json' });
-    t.is(response.statusCode, 400);
-});
-
-// /*
-// **********************************************************
-// Test for viewing a document with a negative id
-// **********************************************************
-// */
-
-test('GET document/${documentId} Document with a negative id', async (t) => {
-    const documentId = -7 ;
-    const response = await t.context.got.get(`document/${documentId}`, { throwHttpErrors: false}, {responseType: 'json' });
-    t.is(response.statusCode, 400);
-});
-
-
-// /*
-// **********************************************************
-// Test for deleting a document
-// **********************************************************
-// */
-test('DELETE document', async (t) => {
-    const documentId = 1 ;
-    const response = await t.context.got.delete(`document/${documentId}`, { throwHttpErrors: false}, {responseType: 'json' });
-    t.is(response.statusCode, 200);
-}); 
-
-
-// /*
-// **********************************************************
-// Test for deleting a nonexisting document
-// **********************************************************
-// */
-test('DELETE document nonexisting document', async (t) => {
-    const documentId = 9 ;
-    const response = await t.context.got.delete(`document/${documentId}`, { throwHttpErrors: false}, {responseType: 'json' });
-    t.is(response.statusCode, 400);
-}); 
-
-
-// /*
-// **********************************************************
-// Test for viewing a document with an invalid id
-// **********************************************************
-// */
-test('GET document/${documentId} Document with invalid id', async (t) => {
-    const documentId = 'a' ;
-    const response = await t.context.got.get(`document/${documentId}`, { throwHttpErrors: false}, {responseType: 'json' });
-    t.is(response.statusCode, 400);
-});
-
  /*
 **********************************************************
 Test for creating an event
@@ -462,3 +390,83 @@ test('DELETE /calendar/{calendarId}/event/{eventId} Delete event from nonexistin
 
 });
 
+/*
+**********************************************************
+Test for adding a document
+**********************************************************
+*/
+
+test('POST document', async (t) => {
+    const document = {
+        documentId: 10
+    };
+
+    const response = await t.context.got.post('document', {
+        json: document,
+        responseType: 'json',
+        throwHttpErrors: false
+    });
+
+    t.is(response.statusCode, 200);
+});
+
+/*
+**********************************************************
+Test for adding a document with invalid id
+**********************************************************
+*/
+
+test('POST document invalid id', async (t) => {
+    const document = {
+        documentId: 'a'
+    };
+
+    const response = await t.context.got.post('document', {
+        json: document,
+        responseType: 'json',
+        throwHttpErrors: false
+    });
+
+    t.is(response.statusCode, 400);
+});
+
+/*
+**********************************************************
+Test for adding a document that already exists
+**********************************************************
+*/
+
+test('POST document already existing document', async (t) => {
+    const document = {
+        documentId: 1
+    };
+
+    const response = await t.context.got.post('document', {
+        json: document,
+        responseType: 'json',
+        throwHttpErrors: false
+    });
+
+    t.is(response.statusCode, 400);
+});
+
+
+/*
+**********************************************************
+Test for adding a document with negative id
+**********************************************************
+*/
+
+test('POST document negative id', async (t) => {
+    const document = {
+        documentId: -1
+    };
+
+    const response = await t.context.got.post('document', {
+        json: document,
+        responseType: 'json',
+        throwHttpErrors: false
+    });
+
+    t.is(response.statusCode, 400);
+});
