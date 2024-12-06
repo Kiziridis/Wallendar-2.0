@@ -2,6 +2,7 @@
 
 var utils = require('../utils/writer.js');
 var Wallet = require('../service/WalletService');
+var Card = require('../service/CardService');
 
 module.exports.addCard = function addCard (req, res, next, body, walletId) {
   Wallet.addCard(body, walletId)
