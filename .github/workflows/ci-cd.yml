@@ -18,7 +18,9 @@ jobs:
         run: npm install
 
       - name: Run tests
-        run: npm run test
+        run: |
+          chmod +x ./node_modules/.bin/c8
+          npm run test
 
       - name: Cypress run
         uses: cypress-io/github-action@v6
@@ -35,3 +37,4 @@ jobs:
         with:
           service-id: ${{ secrets.RENDER_SERVICE_ID }}
           api-key: ${{ secrets.RENDER_API_KEY }}
+          
