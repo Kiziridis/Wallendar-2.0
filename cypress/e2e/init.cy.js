@@ -1,3 +1,71 @@
+describe('Test Event Selection Screen', () => {
+  beforeEach(() => {
+    cy.visit('http://localhost:8080/docs');
+  });
+
+  it('Expand and Collapse the Event Section', () => {
+    // Target the "Event" section by its ID
+    cy.get('h4#operations-tag-Event').as('eventSection');
+
+    // Verify the section is initially expanded
+    cy.get('@eventSection').should('have.attr', 'data-is-open', 'true');
+
+    // Click to collapse the section
+    cy.get('@eventSection').click();
+
+    // Verify the section is collapsed
+    cy.get('@eventSection').should('have.attr', 'data-is-open', 'false');
+
+    // Click again to expand the section
+    cy.get('@eventSection').click();
+
+    // Verify the section is expanded
+    cy.get('@eventSection').should('have.attr', 'data-is-open', 'true');
+  });
+
+  it('Create an Event', () => {
+    // Ensure the section is expanded by clicking the button inside the specific h4 element
+    cy.get('h4.opblock-tag[data-tag="Event"]').within(() => {
+      // Ensure the section is expanded without clicking the button
+      cy.get('button.expand-operation').should('exist');
+    });
+    // Click the first link inside the div with the class 'opblock-summary opblock-summary-post'
+    cy.get('#operations-Event-createEvent').within(() => {
+      cy.get('a.nostyle').click();
+    });
+    // Click the "Try it out" button using cy.contains()
+    cy.contains('button', 'Try it out').click();
+
+    // Change the existing text in the textarea
+    cy.get('#operations-Event-createEvent > div:nth-child(2) > div > div.opblock-section > div.opblock-section.opblock-section-request-body > div.opblock-description-wrapper > div > div:nth-child(3) > div > textarea')
+      .invoke('val')
+      .then((val) => {
+        const updatedVal = val
+          .replace(/"eventId": \d+/, `"eventId": 33`)
+          .replace(/"date": \d+/, '"date": 20231')
+          .replace(/"time": \d+/, '"time": 10')
+          .replace(/"place": ".*"/, '"place": "Conference Room A"')
+          .replace(/"title": ".*"/, '"title": "Team Meeting"')
+          .replace(/"day": ".*"/, '"day": "Monday"')
+          .replace(/"duration": \d+/, '"duration": 2');
+        cy.get('#operations-Event-createEvent > div:nth-child(2) > div > div.opblock-section > div.opblock-section.opblock-section-request-body > div.opblock-description-wrapper > div > div:nth-child(3) > div > textarea')
+          .invoke('val', updatedVal)
+          .trigger('input');
+      });
+
+    // Click the "Execute" button
+    cy.get('button.btn.execute.opblock-control__btn').click();
+
+    // Assert that the URL includes '/#/Event/createEvent'
+    cy.url().should('include', '/#/Event/createEvent');
+
+   // Access the "Server response" table by its class name
+   cy.get('table.responses-table.live-responses-table')
+   .should('exist') // Assert that the table exists
+   .and('be.visible'); // Assert that the table is visibl
+  });
+});
+
 describe('Test Card Selection Screen', () => {
 	beforeEach(() => {
 	  cy.visit('http://localhost:8080/docs');
