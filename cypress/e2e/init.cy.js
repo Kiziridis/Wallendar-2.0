@@ -1,3 +1,4 @@
+// EVENT SCREEN
 describe('Test Event Selection Screen', () => {
   beforeEach(() => {
     cy.visit('http://localhost:8080/docs');
@@ -66,6 +67,7 @@ describe('Test Event Selection Screen', () => {
   });
 });
 
+// CARD SCREEN
 describe('Test Card Selection Screen', () => {
 	beforeEach(() => {
 	  cy.visit('http://localhost:8080/docs');
@@ -124,7 +126,7 @@ describe('Test Card Selection Screen', () => {
 });
 
 
-
+// TEST CALENDAR SCREEN
 describe('Test Calendar Selection Screen', () => {
   beforeEach(() => {
     cy.visit('http://localhost:8080/docs')
