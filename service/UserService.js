@@ -8,7 +8,6 @@
  * returns Users
  **/
 
-
 const users = [
   {
     userId: 1,
@@ -38,8 +37,6 @@ const users = [
     }
   }
 ];
-
-
 
 
 
