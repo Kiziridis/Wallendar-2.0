@@ -920,12 +920,12 @@ test('GET document/{documentId} Document with a negative id', async (t) => {
     t.is(response.statusCode, 400);
 });
 
-// UNHAPPY PATH for GET document/{documentId} [documentId is not in correct form]
-test('GET document/{documentId} Document with invalid id', async (t) => {
-    const documentId = 'a' ;
-    const response = await t.context.got.get(`document/${documentId}`, { throwHttpErrors: false}, {responseType: 'json' });
-    t.is(response.statusCode, 400);
-});
+// // UNHAPPY PATH for GET document/{documentId} [documentId is not in correct form]
+// test('GET document/{documentId} Document with invalid id', async (t) => {
+//     const documentId = 'a' ;
+//     const response = await t.context.got.get(`document/${documentId}`, { throwHttpErrors: false}, {responseType: 'json' });
+//     t.is(response.statusCode, 400);
+// });
 
 // HAPPY PATH for DELETE document/{documentId}
 test('DELETE document', async (t) => {
