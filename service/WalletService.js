@@ -123,18 +123,20 @@ exports.removeCard = function(walletId, cardNumber) {
  * walletId Integer Id of the user's wallet
  * returns Success
  **/
-exports.useCard = function(body,walletId) {
+exports.useCard = function(body, walletId) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = { };
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
+    const wallet = wallets.find(wallet => wallet.walletId === walletId);
+    if (wallet) {
+      if (body.NFCon) {
+        resolve({ message: 'Card used successfully' });
+      } else {
+        reject({ message: 'NFC must be on', code: 400 });
+      }
     } else {
-      resolve();
+      reject({ message: 'Wallet not found', code: 404 });
     }
   });
 }
-
 
 /**
  * View all cards in your wallet.

@@ -7,42 +7,49 @@
  * username String username provided for the search
  * returns Users
  **/
+
+const users = [
+  {
+    userId: 1,
+    user: {
+      password: 'password',
+      email_address: 'john@example.com',
+      preferred_language: 'Greek',
+      username: 'john-doe'
+    }
+  },
+    {
+      userId: 2,
+      user: {
+        password: 'password',
+        email_address: 'jane@example.com',
+        preferred_language: 'Greek',
+        username: 'jane-doe'
+      }
+    },
+  {
+    userId: 3,
+    user: {
+      password: 'password',
+      email_address: 'klpanagi@example.com',
+      preferred_language: 'Greek',
+      username: 'klpanagi'
+    }
+  }
+];
+
+
+
 exports.searchUsers = function(username) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = [
-      {
-        password: 'password',
-        email_address: 'john@example.com',
-        userId: 1,
-        preferred_language: 'Greek',
-        username: 'john-doe'
-      },
-      {
-        password: 'password',
-        email_address: 'kizi@example.com',
-        userId: 2,
-        preferred_language: 'Greek',
-        username: 'kizi'
-      },
-      {
-        password: 'password',
-        email_address: 't@example.com',
-        userId: 4,
-        preferred_language: 'Greek',
-        username: 'tmpillas'
-      }
-    ];
-    const filteredUsers = examples['application/json'].filter((user) =>
-      user.username.includes(username)
-    );
-    if (filteredUsers.length > 0) {
-      resolve(filteredUsers);
+    const user = users.find(u => u.user.username === username );
+    if (user) {
+      resolve(user.user);
     } else {
       reject({
-        code: 404,
-        message: 'No users found matching the username.',
+        message: "User not found",
+        code: 404
       });
     }
   });
-};
+}

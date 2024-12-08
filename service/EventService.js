@@ -87,6 +87,14 @@ const exampleEvents = [
   }
 ];
 
+const exampleCalendars = {
+  1: [exampleEvents[0], exampleEvents[1]],
+  2: [exampleEvents[2]]
+};
+
+
+
+
 
 exports.createEvent = function(body) {
   return new Promise(function(resolve, reject) {
@@ -157,8 +165,17 @@ exports.editEvent = function(body, calendarId, eventId) {
       return;
     }
 
+    // Check if the calendar exists
+    const calendar = exampleCalendars[calendarId];
+    if (!calendar) {
+      reject({
+        message: "Calendar not found",
+        code: 404
+      });
+      return;
+    }
     // Find the event by eventId
-    const eventIndex = exampleEvents.findIndex(e => e.eventId === eventId);
+    const eventIndex = calendar.findIndex(event => event.eventId === eventId);
     if (eventIndex === -1) {
       reject({
         message: "Event not found",
@@ -167,23 +184,12 @@ exports.editEvent = function(body, calendarId, eventId) {
       return;
     }
 
-    // Update the event with the new data
-    const updatedEvent = {
-      ...exampleEvents[eventIndex],
-      date: body.date,
-      duration: body.duration,
-      documents: body.documents || exampleEvents[eventIndex].documents,
-      time: body.time,
-      place: body.place,
-      title: body.title,
-      day: body.day,
-      participants: body.participants
-    };
-
-    // Replace the old event with the updated event
-    exampleEvents[eventIndex] = updatedEvent;
-
-    // Resolve with the updated event
-    resolve(updatedEvent);
+    // Update the event
+    calendar[eventIndex] = { ...calendar[eventIndex], ...body };
+    resolve({
+      message: "Event updated successfully",
+      event: calendar[eventIndex]
+    });
   });
-};
+}
+
