@@ -198,7 +198,6 @@ exports.viewDocument = function(documentId) {
     if (document) {
       resolve(document);
     } else {
-      console.log("Document not found");
       reject({
         message: "Document not found",
         code: 400
