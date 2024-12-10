@@ -16,6 +16,9 @@ jobs:
 
       - name: Download dependencies
         run: npm install
+ 
+      - name: Set permissions for c8
+        run: chmod +x ./node_modules/.bin/c8
 
       - name: Run tests
         run: npm run test
