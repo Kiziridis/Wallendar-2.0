@@ -118,7 +118,7 @@ exports.addDocumentEvent = function(body,calendarId,eventId,documentId) {
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } reject({
-      message: "Card not found",
+      message: "Document not found",
       code: 400
     });
   });
@@ -171,7 +171,7 @@ exports.deleteDocumentEvent = function(calendarId,eventId,documentId) {
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } reject({
-      message: "Card not found",
+      message: "Document not found",
       code: 400
     });
   });
@@ -198,7 +198,6 @@ exports.viewDocument = function(documentId) {
     if (document) {
       resolve(document);
     } else {
-      console.log("Document not found");
       reject({
         message: "Document not found",
         code: 400

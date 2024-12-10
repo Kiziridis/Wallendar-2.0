@@ -17,6 +17,174 @@ test.after.always((t) => {
     console.log('Server closed');
 });
 
+test('PUT /calendar/{calendarId}/event/{eventId} Invalid calendarId', async (t) => {
+    const calendarId = 5; // Invalid calendarId
+    const eventId = 1;
+    const updatedEvent = {
+        date: 2204,
+        duration: 3,
+        eventId: 2,
+        documents: [
+          { documentId: 6 }
+        ],
+        time: 11,
+        place: "Main Hall",
+        title: "Annual Conference",
+        day: "Wednesday",
+        participants: [
+            {
+                password: "securepassword1",
+                email_address: "user1@example.com",
+                userId: 1,
+                preferred_language: "English",
+                username: "user1"
+            },
+            {
+                password: "securepassword2",
+                email_address: "user2@example.com",
+                userId: 2,
+                preferred_language: "Spanish",
+                username: "user2"
+            }
+        ]
+    };
+    const response = await t.context.got.put(`calendar/${calendarId}/event/${eventId}`, {
+        json: updatedEvent,
+        throwHttpErrors: false
+    });
+    t.is(response.statusCode, 404);
+
+});
+
+/*
+**********************************************************
+Test for editing an event successfully
+Testing endpoint PUT /calendar/{calendarId}/event/{eventId} [happy path]
+**********************************************************
+*/
+
+test('PUT /calendar/{calendarId}/event/{eventId} Edit event successfully', async (t) => {
+    const calendarId = 1;
+    const eventId = 1;
+    const updatedEvent = {
+        date: 2024,
+        duration: 3,
+        eventId: 2,
+        documents: [
+          { documentId: 6 }
+        ],
+        time: 1,
+        place: "Main Hall",
+        title: "Annual Conference",
+        day: "Wednesday",
+        participants: [
+            {
+                password: "securepassword1",
+                email_address: "user1@example.com",
+                userId: 1,
+                preferred_language: "English",
+                username: "user1"
+            },
+            {
+                password: "securepassword2",
+                email_address: "user2@example.com",
+                userId: 2,
+                preferred_language: "Spanish",
+                username: "user2"
+            }
+        ]
+    };
+    const response = await t.context.got.put(`calendar/${calendarId}/event/${eventId}`, {
+        json: updatedEvent
+    });
+    t.is(response.statusCode, 200);
+});
+
+
+/*
+**********************************************************
+Test for using a card successfully
+Testing endpoint PUT /wallet/{walletId} [happy path]
+**********************************************************
+*/
+
+test('PUT /wallet/{walletId} Use card successfully', async (t) => {
+    const walletId = 1;
+    const body = {
+        walletId: 1,
+        Cards: [
+            {
+                card_holder: "Konstantinos Panagiotou",
+                cvv: 107,
+                card_number: 1111222233334444,
+                exp_date: 22032032
+            }
+        ],
+        NFCon: true
+    };
+    const response = await t.context.got.put(`wallet/${walletId}`, {
+        json: body
+    });
+    t.is(response.statusCode, 200);
+});
+
+
+
+/*
+**********************************************************
+Test for using a card unsuccessfully
+Testing endpoint PUT /wallet/{walletId} [unhappy path - wallet not found]
+**********************************************************
+*/
+
+test('PUT /wallet/{walletId} Wallet not found', async (t) => {
+    const walletId = 12;
+    const body = {
+        walletId: 12,
+        Cards: [
+            {
+                card_holder: "Konstantinos Panagiotou",
+                cvv: 107,
+                card_number: 1111222233334444,
+                exp_date: 22032032
+            }
+        ],
+        NFCon: true
+    };
+    const response = await t.context.got.put(`wallet/${walletId}`, { throwHttpErrors: false, json:body });
+    t.is(response.statusCode, 404);
+});
+    
+
+
+
+
+test('GET /users/{username} Get user successfully', async (t) => {
+    const username = 'klpanagi';
+    const response = await t.context.got(`users?username=${username}`, { responseType: 'json' });
+    t.is(response.statusCode, 200);
+    t.deepEqual(response.body, {
+        password: "password",
+        email_address: "klpanagi@example.com",
+        preferred_language: "Greek",
+        username: "klpanagi"
+    });
+});
+
+/*
+**********************************************************
+Test for get user unsuccessfully
+Testing endpoint GET /users/{username} [unhappy path]
+**********************************************************
+*/
+
+test('GET /users/{username} User not found', async (t) => {
+    const username = 'MikeWazowski';
+    const response = await t.context.got(`users/${username}`, { throwHttpErrors: false, responseType: 'json' });
+    t.is(response.statusCode, 404);
+});
+
+
 /*
 **********************************************************
 Test for select card from wallet successfully and with the right card's infos
@@ -32,8 +200,8 @@ test('GET wallet/{walletId}/card/{cardnumber} Select card from wallet successful
     t.is(response.statusCode, 200);
     t.deepEqual(response.body, {
         card_holder: 'John Doe',
-        cvv: 108,
         cardNumber: 2222333344445555,
+        cvv: 108,
         exp_date: 22042042
     });
 });
@@ -611,7 +779,7 @@ Test for adding a document that already exists
 
 test('POST document already existing document', async (t) => {
     const document = {
-        documentId: 1
+        documentId: 0
     };
 
     const response = await t.context.got.post('document', {
@@ -733,7 +901,7 @@ test('POST /wallet/{walletId}/card does not create a card when card data are not
 
 // HAPPY PATH for GET document/{documentId}
 test('GET document/{documentId}', async (t) => {
-    const documentId = 1 ;
+    const documentId = 2 ;
     const response = await t.context.got.get(`document/${documentId}`, { throwHttpErrors: false}, {responseType: 'json' });
     t.is(response.statusCode, 200);
 });
