@@ -31,10 +31,8 @@
     "supertest": "^6.1.6",
     "test-listen": "^1.1.0"
   },
-  "resolutions": {
-  "body-parser": "^1.20.3"
-},
 "overrides": {
-  "@types/body-parser": "latest"
+  "@types/body-parser": "latest",
+  "busboy": "1.0.0"
 }
 }
