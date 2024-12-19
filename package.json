@@ -27,13 +27,13 @@
     "c8": "^8.0.1",
     "cypress": "^13.16.1",
     "got": "^11.8.5",
-    "mocha": "^9.2.2",
+    "mocha": "latest",
     "supertest": "^6.1.6",
     "test-listen": "^1.1.0"
   },
 "overrides": {
   "body-parser": "1.20.3",
   "busboy": "1.0.0",
-  "nanoid": "3.3.1"
+  "nanoid": "3.3.8"
 }
 }
