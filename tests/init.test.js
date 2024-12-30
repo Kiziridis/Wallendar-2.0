@@ -6,6 +6,7 @@ const app = require('../index');
 const { Events } = require('../service/CalendarService');
 const { exampleEvents } = require('../service/EventService');
 
+//dummy participant data
 const pax = [
     {
         password: "securepassword1",
@@ -23,6 +24,7 @@ const pax = [
     }
 ];
 
+// Before the tests
 test.before(async (t) => {
     t.context.server = http.createServer(app);
     const server = t.context.server.listen(0);
@@ -30,7 +32,7 @@ test.before(async (t) => {
     t.context.got = got.extend({ prefixUrl: `http://localhost:${port}` });
     console.log('Server started');
 });
-
+// After the tests
 test.after.always((t) => {
     t.context.server.close();
     console.log('Server closed');
