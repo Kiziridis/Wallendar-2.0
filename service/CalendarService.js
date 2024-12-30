@@ -57,7 +57,15 @@ const exampleCalendars = {
   2: [Events[2]]
 };
 
-
+/**
+ * Add an event to all attendants' calendars.
+ * FR15: The system must be able to add the co-created event in the attendants' calendars. 
+ *
+ * body Event 
+ * userIds List Ids of the users
+ * calendarIds List Ids of the users calendars
+ * returns Calendars
+ **/
 exports.addAllCalendars = function(body, userIds, calendarIds) {
   return new Promise(function(resolve, reject) {
     // Validate the input body
@@ -102,6 +110,14 @@ exports.addAllCalendars = function(body, userIds, calendarIds) {
   });
 };
 
+/**
+ * Add a new event in your calendar.
+ * FR7: The user must be able to manage an event. (add event) 
+ *
+ * body Event 
+ * calendarId Integer Id of the user's calendar
+ * returns Event
+ **/
 
 exports.addEvent = function(body, calendarId) {
   return new Promise(function(resolve, reject) {
@@ -161,7 +177,14 @@ exports.addEvent = function(body, calendarId) {
     resolve(event);
   });
 };
-
+/**
+ * Delete an event from your calendar.
+ * FR7: The user must be able to manage an event. (delete event) 
+ *
+ * calendarId Integer Id of the user's calendar
+ * eventId Integer Id of the event that needs to be deleted
+ * returns Success
+ **/
 exports.deleteEvent = function(calendarId, eventId) {
   return new Promise(function(resolve, reject) {
     // Check if the calendar exists
@@ -172,6 +195,7 @@ exports.deleteEvent = function(calendarId, eventId) {
       });
       return;
     }
+
     // Find the event index in the calendar
     const eventIndex = exampleCalendars[calendarId].findIndex(e => e.eventId === eventId);
     if (eventIndex === -1) {
@@ -193,6 +217,14 @@ exports.deleteEvent = function(calendarId, eventId) {
   });
 }
 
+/**
+ * Find common free spots in the users' calendar
+ * FR12: The system must be able to find the common free spots in the users' calendar. 
+ *
+ * userIds List Ids of the users
+ * calendarIds List Ids of the users calendars
+ * returns List
+ **/
 
 exports.findCommonFreeSpots = function(userIds,calendarIds) {
   return new Promise(function(resolve, reject) {
@@ -212,7 +244,13 @@ exports.findCommonFreeSpots = function(userIds,calendarIds) {
   });
 }
 
-
+/**
+ * Find free spots in the user's calendar
+ * FR10: The system must be able to find the free spots in the user's calendar. 
+ *
+ * calendarId Integer Id of the user's calendar
+ * returns List
+ **/
 exports.findFreeSpots = function(calendarId) {
   return new Promise(function(resolve, reject) {
     var examples = {};
