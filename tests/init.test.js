@@ -4,6 +4,23 @@ const got = require('got');
 const express = require('express');
 const app = require('../index');
 
+const pax = [
+    {
+        password: "securepassword1",
+        email_address: "user1@example.com",
+        userId: 1,
+        preferred_language: "English",
+        username: "user1"
+    },
+    {
+        password: "securepassword2",
+        email_address: "user2@example.com",
+        userId: 2,
+        preferred_language: "Spanish",
+        username: "user2"
+    }
+];
+
 test.before(async (t) => {
     t.context.server = http.createServer(app);
     const server = t.context.server.listen(0);
@@ -31,22 +48,7 @@ test('PUT /calendar/{calendarId}/event/{eventId} Invalid calendarId', async (t) 
         place: "Main Hall",
         title: "Annual Conference",
         day: "Wednesday",
-        participants: [
-            {
-                password: "securepassword1",
-                email_address: "user1@example.com",
-                userId: 1,
-                preferred_language: "English",
-                username: "user1"
-            },
-            {
-                password: "securepassword2",
-                email_address: "user2@example.com",
-                userId: 2,
-                preferred_language: "Spanish",
-                username: "user2"
-            }
-        ]
+        participants: pax
     };
     const response = await t.context.got.put(`calendar/${calendarId}/event/${eventId}`, {
         json: updatedEvent,
@@ -378,22 +380,7 @@ test('POST event', async (t) => {
         place: "Main Hall",
         title: "Annual Conference",
         day: "Wednesday",
-        participants: [
-            {
-                password: "securepassword1",
-                email_address: "user1@example.com",
-                userId: 1,
-                preferred_language: "English",
-                username: "user1"
-            },
-            {
-                password: "securepassword2",
-                email_address: "user2@example.com",
-                userId: 2,
-                preferred_language: "Spanish",
-                username: "user2"
-            }
-        ]
+        participants: pax
       };
     const response = await t.context.got.post('event', {
         json: event,
@@ -499,22 +486,7 @@ test('POST event event with negative values', async (t) => {
         place: "Main Hall",
         title: "Annual Conference",
         day: "Wednesday",
-        participants: [
-            {
-                password: "securepassword1",
-                email_address: "user1@example.com",
-                userId: 1,
-                preferred_language: "English",
-                username: "user1"
-            },
-            {
-                password: "securepassword2",
-                email_address: "user2@example.com",
-                userId: 2,
-                preferred_language: "Spanish",
-                username: "user2"
-            }
-        ]
+        participants: pax
     };
     const response = await t.context.got.post('event', {
         json: event,
@@ -536,22 +508,7 @@ const event1 = {
     place: "Main Hall",
     title: "Annual Conference",
     day: "Wednesday",
-    participants: [
-        {
-            password: "securepassword1",
-            email_address: "user1@example.com",
-            userId: 1,
-            preferred_language: "English",
-            username: "user1"
-        },
-        {
-            password: "securepassword2",
-            email_address: "user2@example.com",
-            userId: 2,
-            preferred_language: "Spanish",
-            username: "user2"
-        }
-    ]
+    participants: pax
 };
 /*
 **********************************************************
