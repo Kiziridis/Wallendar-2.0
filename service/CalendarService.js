@@ -57,8 +57,6 @@ const exampleCalendars = {
   2: [Events[2]]
 };
 
-
-// module.exports = { Events, exampleCalendars };
 /**
  * Add an event to all attendants' calendars.
  * FR15: The system must be able to add the co-created event in the attendants' calendars. 
@@ -187,7 +185,6 @@ exports.addEvent = function(body, calendarId) {
  * eventId Integer Id of the event that needs to be deleted
  * returns Success
  **/
-
 exports.deleteEvent = function(calendarId, eventId) {
   return new Promise(function(resolve, reject) {
     // Check if the calendar exists
@@ -228,6 +225,7 @@ exports.deleteEvent = function(calendarId, eventId) {
  * calendarIds List Ids of the users calendars
  * returns List
  **/
+
 exports.findCommonFreeSpots = function(userIds,calendarIds) {
   return new Promise(function(resolve, reject) {
     var examples = {};
@@ -245,7 +243,6 @@ exports.findCommonFreeSpots = function(userIds,calendarIds) {
     }
   });
 }
-
 
 /**
  * Find free spots in the user's calendar
@@ -271,4 +268,3 @@ exports.findFreeSpots = function(calendarId) {
     }
   });
 }
-
