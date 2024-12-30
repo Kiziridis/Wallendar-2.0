@@ -200,7 +200,6 @@ exports.deleteEvent = function(calendarId, eventId) {
 /**
  * Find common free spots in the users' calendar
  * FR12: The system must be able to find the common free spots in the users' calendar. 
- *
  * userIds List Ids of the users
  * calendarIds List Ids of the users calendars
  * returns List
@@ -222,11 +221,9 @@ exports.findCommonFreeSpots = function(userIds,calendarIds) {
     }
   });
 }
-
 /**
  * Find free spots in the user's calendar
  * FR10: The system must be able to find the free spots in the user's calendar. 
- *
  * calendarId Integer Id of the user's calendar
  * returns List
  **/
