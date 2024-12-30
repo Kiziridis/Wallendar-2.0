@@ -524,7 +524,35 @@ test('POST event event with negative values', async (t) => {
     t.is(response.statusCode, 400);
 });
 
-
+const event1 = {
+    date: 20231115,
+    duration: 2,
+    eventId: 4,
+    documents: [
+        { documentId: 6 },
+        { documentId: 7 }
+    ],
+    time: 1100,
+    place: "Main Hall",
+    title: "Annual Conference",
+    day: "Wednesday",
+    participants: [
+        {
+            password: "securepassword1",
+            email_address: "user1@example.com",
+            userId: 1,
+            preferred_language: "English",
+            username: "user1"
+        },
+        {
+            password: "securepassword2",
+            email_address: "user2@example.com",
+            userId: 2,
+            preferred_language: "Spanish",
+            username: "user2"
+        }
+    ]
+};
 /*
 **********************************************************
 Test for adding an event to a calendar 
@@ -533,37 +561,8 @@ Test for adding an event to a calendar
 
 test('POST /calendar/{calendarId}/event Add event to calendar', async (t) => {
     const calendarId = 1;
-    const event = {
-        date: 20231115,
-        duration: 2,
-        eventId: 4,
-        documents: [
-            { documentId: 6 },
-            { documentId: 7 }
-        ],
-        time: 1100,
-        place: "Main Hall",
-        title: "Annual Conference",
-        day: "Wednesday",
-        participants: [
-            {
-                password: "securepassword1",
-                email_address: "user1@example.com",
-                userId: 1,
-                preferred_language: "English",
-                username: "user1"
-            },
-            {
-                password: "securepassword2",
-                email_address: "user2@example.com",
-                userId: 2,
-                preferred_language: "Spanish",
-                username: "user2"
-            }
-        ]
-    };
     const response = await t.context.got.post(`calendar/${calendarId}/event`, {
-        json: event,
+        json: event1,
         responseType: 'json',
         throwHttpErrors: false
     });
@@ -579,42 +578,14 @@ Test for adding an event to a calendar that does not exist
 
 test('POST /calendar/{calendarId}/event Add event to nonexisting calendar', async (t) => {
     const calendarId = 5;
-    const event = {
-        date: 20231115,
-        duration: 2,
-        eventId: 4,
-        documents: [
-            { documentId: 6 },
-            { documentId: 7 }
-        ],
-        time: 1100,
-        place: "Main Hall",
-        title: "Annual Conference",
-        day: "Wednesday",
-        participants: [
-            {
-                password: "securepassword1",
-                email_address: "user1@example.com",
-                userId: 1,
-                preferred_language: "English",
-                username: "user1"
-            },
-            {
-                password: "securepassword2",
-                email_address: "user2@example.com",
-                userId: 2,
-                preferred_language: "Spanish",
-                username: "user2"
-            }
-        ]
-    };
     const response = await t.context.got.post(`calendar/${calendarId}/event`, {
-        json: event,
+        json: event1,
         responseType: 'json',
         throwHttpErrors: false
     });
     t.is(response.statusCode, 400);
 })
+
 
 /*
 **********************************************************
