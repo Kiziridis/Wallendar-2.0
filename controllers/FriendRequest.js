@@ -1,44 +1,35 @@
 'use strict';
 
+// Import the utils module for writing JSON responses
 var utils = require('../utils/writer.js');
-var FriendRequest = require('../service/FriendRequestService');
 
-module.exports.acceptDeclineFriendRequest = function acceptDeclineFriendRequest (req, res, next, body, friendRequestId) {
-  FriendRequest.acceptDeclineFriendRequest(body, friendRequestId)
+// Import the Event service module
+var Event = require('../service/EventService');
+
+// Function to handle creating an event
+module.exports.createEvent = function createEvent (req, res, next, body) {
+  // Call the createEvent function from the Event service
+  Event.createEvent(body)
     .then(function (response) {
-      utils.writeJson(res, response);
+      // If the promise resolves, write the JSON response with the response code
+      utils.writeJson(res, response, response.code);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      // If the promise rejects, write the JSON response with the response code
+      utils.writeJson(res, response, response.code);
     });
 };
 
-module.exports.cancelFriendRequest = function cancelFriendRequest (req, res, next, friendRequestId) {
-  FriendRequest.cancelFriendRequest(friendRequestId)
+// Function to handle editing an event
+module.exports.editEvent = function editEvent (req, res, next, body, calendarId, eventId) {
+  // Call the editEvent function from the Event service
+  Event.editEvent(body, calendarId, eventId)
     .then(function (response) {
-      utils.writeJson(res, response);
+      // If the promise resolves, write the JSON response with the response code
+      utils.writeJson(res, response, response.code);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
-    });
-};
-
-module.exports.receiveFriendRequest = function receiveFriendRequest (req, res, next, senderId, friendRequestId) {
-  FriendRequest.receiveFriendRequest(senderId, friendRequestId)
-    .then(function (response) {
-      utils.writeJson(res, response);
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response);
-    });
-};
-
-module.exports.sendFriendRequest = function sendFriendRequest (req, res, next, body, receiverId) {
-  FriendRequest.sendFriendRequest(body, receiverId)
-    .then(function (response) {
-      utils.writeJson(res, response);
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response);
+      // If the promise rejects, write the JSON response with the response code
+      utils.writeJson(res, response, response.code);
     });
 };
