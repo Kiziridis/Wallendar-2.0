@@ -24,20 +24,6 @@ const documents = [
  * body Document 
  * returns Document
  **/
-// exports.addDocument = function(body) {
-//   return new Promise(function(resolve, reject) {
-//     var examples = {};
-//     examples['application/json'] = {
-//   "documentId" : 0
-// };
-//     if (Object.keys(examples).length > 0) {
-//       resolve(examples[Object.keys(examples)[0]]);
-//     } reject({
-//       message: "Document not found",
-//       code: 400
-//     });
-//   });
-// }
 
 exports.addDocument = function(body) {
   return new Promise(function(resolve, reject) {

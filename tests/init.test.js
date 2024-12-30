@@ -130,8 +130,6 @@ test('PUT /wallet/{walletId} Use card successfully', async (t) => {
     t.is(response.statusCode, 200);
 });
 
-
-
 /*
 **********************************************************
 Test for using a card unsuccessfully
@@ -157,9 +155,12 @@ test('PUT /wallet/{walletId} Wallet not found', async (t) => {
     t.is(response.statusCode, 404);
 });
     
-
-
-
+/*
+**********************************************************
+Test for get user successfully
+Testing endpoint GET /users/{username} [unhappy path]
+**********************************************************
+*/
 
 test('GET /users/{username} Get user successfully', async (t) => {
     const username = 'klpanagi';
@@ -176,7 +177,7 @@ test('GET /users/{username} Get user successfully', async (t) => {
 /*
 **********************************************************
 Test for get user unsuccessfully
-Testing endpoint GET /users/{username} [unhappy path]
+Testing endpoint GET /users/{username} [happy path]
 **********************************************************
 */
 
@@ -194,7 +195,6 @@ Testing endpoint GET /wallet/{walletId}/card/{cardnumber} [happy path]
 **********************************************************
 */
 
-
 test('GET wallet/{walletId}/card/{cardnumber} Select card from wallet successfully', async (t) => {
     walletId = 2;
     cardNumber = 2222333344445555;
@@ -207,8 +207,6 @@ test('GET wallet/{walletId}/card/{cardnumber} Select card from wallet successful
         exp_date: 22042042
     });
 });
-
-
 
 /*
 **********************************************************
@@ -223,9 +221,6 @@ test('GET wallet/{walletId}/card/{cardnumber} Invalid walletId', async (t) => {
     const response = await t.context.got(`wallet/${walletId}/card/${cardNumber}`, { throwHttpErrors: false, responseType: 'json' });
     t.is(response.statusCode, 400);
 });
-
-
-
 
 
 /*
@@ -257,7 +252,6 @@ test('DELETE wallet/{walletId}/card/{cardnumber} Card not found walletId does no
     t.is(response.statusCode, 404);
 });
 
-
 /*
 **********************************************************
 Test for creating a vaid notification
@@ -277,15 +271,12 @@ test('POST notification Create a notification', async (t) => {
 });
 
 
-
-
 /*
 **********************************************************
 Test for creating a vaid notification
 Testing endpoint POST /notification [unhappy path(notificationTime is not a between 0 and 24)]
 **********************************************************
 */
-
 
 test('POST notification Create a notification with invalid time', async (t) => {
     const notification = {
@@ -308,7 +299,6 @@ Testing endpoint POST /notification [unhappy path(notificationId is not a positi
 **********************************************************
 */
 
-
 test('POST notification Create a notification with invalid Id', async (t) => {
     const notification = {
         notificationTime: 10,
@@ -330,7 +320,6 @@ Testing endpoint GET /notification/{notificationId} [happy path]
 **********************************************************
 */
 
-
 test('GET notification/{notificationId} Receive a notification', async (t) => {
     const notificationId = 2; 
     const response = await t.context.got(`notification/${notificationId}`, {
@@ -351,7 +340,6 @@ Test for creating a vaid notification
 Testing endpoint GET /notification/{notificationId} [unhappy path(notificationId is not a positive number)]
 **********************************************************
 */
-
 
 test('GET /notification/{notificationId} Receive a notification with invalid Id', async (t) => {
     const notificationId = -1; // Invalid Id
@@ -389,7 +377,6 @@ test('POST event', async (t) => {
     });
     t.is(response.statusCode, 200);
 });
-
 
 
 /*
@@ -437,7 +424,6 @@ test('POST event existing event', async (t) => {
 });
 
 
-
 /*
 **********************************************************
 Test for creating an event with invalid data
@@ -465,7 +451,6 @@ test('POST event invalid event', async (t) => {
     });
     t.is(response.statusCode, 400);
 }); 
-
 
 
 /*
@@ -526,7 +511,6 @@ test('POST /calendar/{calendarId}/event Add event to calendar', async (t) => {
     t.is(response.statusCode, 200);
 })
 
-
 /*
 **********************************************************
 Test for adding an event to a calendar that does not exist
@@ -542,7 +526,6 @@ test('POST /calendar/{calendarId}/event Add event to nonexisting calendar', asyn
     });
     t.is(response.statusCode, 400);
 })
-
 
 /*
 **********************************************************
@@ -576,7 +559,6 @@ test('POST /calendar/{calendarId}/event Add existing event to calendar', async (
     });
     t.is(response.statusCode, 400);
 })
-
 
 
 /*
