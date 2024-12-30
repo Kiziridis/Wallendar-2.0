@@ -6,9 +6,12 @@ var utils = require('../utils/writer.js');
 // Import the CoCreationRequest service module
 var CoCreationRequest = require('../service/CoCreationRequestService');
 
+
+module.exports.coCreation = function coCreation (_req, res, _next, body, suggestedTimeslot, coCreationId) {
 // Function to handle co-creation
-module.exports.coCreation = function coCreation (req, res, next, body, suggestedTimeslot, coCreationId) {
+
   // Call the coCreation function from the CoCreationRequest service
+
   CoCreationRequest.coCreation(body, suggestedTimeslot, coCreationId)
     .then(function (response) {
       // If the promise resolves, write the JSON response
@@ -20,8 +23,10 @@ module.exports.coCreation = function coCreation (req, res, next, body, suggested
     });
 };
 
+
+module.exports.receiveCoCreationRequest = function receiveCoCreationRequest (_req, res, _next, senderId, coCreationId) {
 // Function to handle receiving a co-creation request
-module.exports.receiveCoCreationRequest = function receiveCoCreationRequest (req, res, next, senderId, coCreationId) {
+
   // Call the receiveCoCreationRequest function from the CoCreationRequest service
   CoCreationRequest.receiveCoCreationRequest(senderId, coCreationId)
     .then(function (response) {
@@ -34,8 +39,10 @@ module.exports.receiveCoCreationRequest = function receiveCoCreationRequest (req
     });
 };
 
+
+module.exports.sendCoCreationRequest = function sendCoCreationRequest (_req, res, _next, body, receiverIds) {
 // Function to handle sending a co-creation request
-module.exports.sendCoCreationRequest = function sendCoCreationRequest (req, res, next, body, receiverIds) {
+
   // Call the sendCoCreationRequest function from the CoCreationRequest service
   CoCreationRequest.sendCoCreationRequest(body, receiverIds)
     .then(function (response) {

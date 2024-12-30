@@ -6,8 +6,10 @@ var utils = require('../utils/writer.js');
 // Import the User service module
 var User = require('../service/UserService');
 
+
+module.exports.searchUsers = function searchUsers (_req, res, _next, username) {
 // Function to handle searching for users by username
-module.exports.searchUsers = function searchUsers (req, res, next, username) {
+
   // Call the searchUsers function from the User service
   User.searchUsers(username)
     .then(function (response) {
