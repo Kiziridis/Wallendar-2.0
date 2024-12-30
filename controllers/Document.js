@@ -14,7 +14,7 @@ var Document = require('../service/DocumentService');
  * @param {function} next - The next middleware function.
  * @param {object} body - The document details to add.
  */
-module.exports.addDocument = function addDocument(_req, res, _next, body) {
+module.exports.addDocument = function addDocument(_, res, _, body) {
   Document.addDocument(body)
     .then(function(response) {
       utils.writeJson(res, response, response.code);
