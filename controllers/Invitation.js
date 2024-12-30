@@ -1,44 +1,70 @@
 'use strict';
 
+// Import the utils module for writing JSON responses
 var utils = require('../utils/writer.js');
+
+// Import the Invitation service module
 var Invitation = require('../service/InvitationService');
 
-module.exports.acceptDeclineEventInvitation = function acceptDeclineEventInvitation (req, res, next, body, invitationId) {
+
+module.exports.acceptDeclineEventInvitation = function acceptDeclineEventInvitation (_req, res, _next, body, invitationId) {
+// Function to handle accepting or declining an event invitation
+  
+  // Call the acceptDeclineEventInvitation function from the Invitation service
   Invitation.acceptDeclineEventInvitation(body, invitationId)
     .then(function (response) {
+      // If the promise resolves, write the JSON response
       utils.writeJson(res, response);
     })
     .catch(function (response) {
+      // If the promise rejects, write the JSON response
       utils.writeJson(res, response);
     });
 };
 
-module.exports.cancelInvite = function cancelInvite (req, res, next, calendarId, eventId, invitationId) {
+
+module.exports.cancelInvite = function cancelInvite (_req, res, _next, calendarId, eventId, invitationId) {
+// Function to handle canceling an invitation
+
+  // Call the cancelInvite function from the Invitation service
   Invitation.cancelInvite(calendarId, eventId, invitationId)
     .then(function (response) {
+      // If the promise resolves, write the JSON response
       utils.writeJson(res, response);
     })
     .catch(function (response) {
+      // If the promise rejects, write the JSON response
       utils.writeJson(res, response);
     });
 };
 
-module.exports.inviteEvent = function inviteEvent (req, res, next, body, inviteeId, calendarId, eventId) {
+
+module.exports.inviteEvent = function inviteEvent (_req, res, _next, body, inviteeId, calendarId, eventId) {
+// Function to handle inviting someone to an event
+
+  // Call the inviteEvent function from the Invitation service
   Invitation.inviteEvent(body, inviteeId, calendarId, eventId)
     .then(function (response) {
+      // If the promise resolves, write the JSON response
       utils.writeJson(res, response);
     })
     .catch(function (response) {
+      // If the promise rejects, write the JSON response
       utils.writeJson(res, response);
     });
 };
 
-module.exports.receiveEventInvite = function receiveEventInvite (req, res, next, inviterId, calendarId, eventId, invitationId) {
+module.exports.receiveEventInvite = function receiveEventInvite (_req, res, _next, inviterId, calendarId, eventId, invitationId) {
+// Function to handle receiving an event invitation
+
+  // Call the receiveEventInvite function from the Invitation service
   Invitation.receiveEventInvite(inviterId, calendarId, eventId, invitationId)
     .then(function (response) {
+      // If the promise resolves, write the JSON response
       utils.writeJson(res, response);
     })
     .catch(function (response) {
+      // If the promise rejects, write the JSON response
       utils.writeJson(res, response);
     });
 };
