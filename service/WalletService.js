@@ -79,9 +79,7 @@ exports.addCard = function(body, walletId) {
       });
       return;
     }
-    if (Object.keys(examples).length > 0) {
-      resolve(examples['application/json']);
-    } else {
+    else {
       resolve();
     }
   });
