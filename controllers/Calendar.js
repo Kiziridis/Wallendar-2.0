@@ -35,7 +35,7 @@ module.exports.addEvent = function addEvent (req, res, next, body, calendarId) {
 };
 
 // Function to handle deleting an event
-module.exports.deleteEvent = function deleteEvent ( res, calendarId, eventId) {
+module.exports.deleteEvent = function deleteEvent (req, res, next, calendarId, eventId) {
   // Call the deleteEvent function from the Calendar service
   Calendar.deleteEvent(calendarId, eventId)
     .then(function (response) {
@@ -49,7 +49,7 @@ module.exports.deleteEvent = function deleteEvent ( res, calendarId, eventId) {
 };
 
 // Function to handle finding common free spots
-module.exports.findCommonFreeSpots = function findCommonFreeSpots ( res, userIds, calendarIds) {
+module.exports.findCommonFreeSpots = function findCommonFreeSpots (req, res, next, userIds, calendarIds) {
   // Call the findCommonFreeSpots function from the Calendar service
   Calendar.findCommonFreeSpots(userIds, calendarIds)
     .then(function (response) {
