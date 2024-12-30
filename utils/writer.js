@@ -30,43 +30,20 @@ exports.respondWithCode = function(code, payload) {
  * @param {any} arg1 - The payload or a ResponsePayload object.
  * @param {number} [arg2] - The HTTP status code.
  */
-var writeJson = exports.writeJson = function(response, arg1, arg2) {
+exports.writeJson = function(response, arg1, arg2) {
   var code;
   var payload;
 
-  // If arg1 is an instance of ResponsePayload, extract code and payload
+  // Determine if arg1 is a ResponsePayload object or a payload
   if (arg1 && arg1 instanceof ResponsePayload) {
-    writeJson(response, arg1.payload, arg1.code);
-    return;
-  }
-
-  // Determine the HTTP status code
-  if (arg2 && Number.isInteger(arg2)) {
-    code = arg2;
+    code = arg1.code;
+    payload = arg1.payload;
   } else {
-    if (arg1 && Number.isInteger(arg1)) {
-      code = arg1;
-    }
-  }
-
-  // Determine the payload
-  if (code && arg1) {
-    payload = arg1;
-  } else if (arg1) {
+    code = arg2 || 200; // Default to 200 if no code is provided
     payload = arg1;
   }
 
-  // Default to HTTP status code 200 if none is provided
-  if (!code) {
-    code = 200;
-  }
-
-  // Convert payload to JSON string if it's an object
-  if (typeof payload === 'object') {
-    payload = JSON.stringify(payload, null, 2);
-  }
-
-  // Write the JSON response
-  response.writeHead(code, { 'Content-Type': 'application/json' });
-  response.end(payload);
+  // Set the response status code and content type
+  response.status(code);
+  response.json(payload);
 };
