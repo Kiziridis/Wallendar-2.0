@@ -51,8 +51,8 @@ const Events = [
     ]
   }
 ];
-// Export the Events array
-exports.Events = Events;
+
+exports.Events = Events; //Export the Events array
 
 const exampleCalendars = {
   1: [Events[0], Events[1]],
@@ -98,10 +98,8 @@ exports.addAllCalendars = function(body, userIds, calendarIds) {
       });
       return;
     }
-
     // Create the event
     const event = createEvent(body);
-
     // Add the event to each specified calendar
     calendarIds.forEach(calendarId => {
       if (!exampleCalendars[calendarId]) {
@@ -109,12 +107,10 @@ exports.addAllCalendars = function(body, userIds, calendarIds) {
       }
       exampleCalendars[calendarId].push(event);
     });
-
     // Resolve with the updated calendars
     resolve(exampleCalendars);
   });
 };
-
 /**
  * Add a new event in your calendar.
  * FR7: The user must be able to manage an event. (add event) 
@@ -148,7 +144,6 @@ exports.addEvent = function(body, calendarId) {
       });
       return;
     }
-
     // Check if the event already exists in the calendar
     if (exampleCalendars[calendarId] && exampleCalendars[calendarId].find(e => e.eventId === body.eventId)) {
       reject({
@@ -157,16 +152,13 @@ exports.addEvent = function(body, calendarId) {
       });
       return;
     }
-
     // Create the event
     const event = createEvent(body);
-
     // Add the event to the calendar
     if (!exampleCalendars[calendarId]) {
       exampleCalendars[calendarId] = [];
     }
     exampleCalendars[calendarId].push(event);
-
     // Resolve with the created event
     resolve(event);
   });
@@ -189,7 +181,6 @@ exports.deleteEvent = function(calendarId, eventId) {
       });
       return;
     }
-
     // Find the event index in the calendar
     const eventIndex = exampleCalendars[calendarId].findIndex(e => e.eventId === eventId);
     if (eventIndex === -1) {
@@ -199,10 +190,8 @@ exports.deleteEvent = function(calendarId, eventId) {
       });
       return;
     }
-
     // Remove the event from the calendar
     exampleCalendars[calendarId].splice(eventIndex, 1);
-
     // Resolve with a success message
     resolve({
       message: "Event deleted successfully",
