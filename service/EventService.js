@@ -95,9 +95,6 @@ const exampleCalendars = {
 };
 
 
-
-
-
 exports.createEvent = function(body) {
   return new Promise(function(resolve, reject) {
     // Validate the input body
@@ -194,4 +191,3 @@ exports.editEvent = function(body, calendarId, eventId) {
     });
   });
 }
-

@@ -36,6 +36,7 @@ test.after.always((t) => {
     console.log('Server closed');
 });
 
+// UNHAPPY PATH for PUT calendar/{calendarId}/event/{eventId} [calendarId is not in correct form]
 test('PUT /calendar/{calendarId}/event/{eventId} Invalid calendarId', async (t) => {
     const calendarId = 5; // Invalid calendarId
     const eventId = 1;
@@ -66,7 +67,6 @@ Test for editing an event successfully
 Testing endpoint PUT /calendar/{calendarId}/event/{eventId} [happy path]
 **********************************************************
 */
-
 test('PUT /calendar/{calendarId}/event/{eventId} Edit event successfully', async (t) => {
     const calendarId = 1;
     const eventId = 1;
@@ -111,7 +111,6 @@ Test for using a card successfully
 Testing endpoint PUT /wallet/{walletId} [happy path]
 **********************************************************
 */
-
 test('PUT /wallet/{walletId} Use card successfully', async (t) => {
     const walletId = 1;
     const body = {
@@ -138,7 +137,6 @@ Test for using a card unsuccessfully
 Testing endpoint PUT /wallet/{walletId} [unhappy path - wallet not found]
 **********************************************************
 */
-
 test('PUT /wallet/{walletId} Wallet not found', async (t) => {
     const walletId = 12;
     const body = {
@@ -163,7 +161,6 @@ Test for get user successfully
 Testing endpoint GET /users/{username} [unhappy path]
 **********************************************************
 */
-
 test('GET /users/{username} Get user successfully', async (t) => {
     const username = 'klpanagi';
     const response = await t.context.got(`users?username=${username}`, { responseType: 'json' });
@@ -352,13 +349,8 @@ test('GET /notification/{notificationId} Receive a notification with invalid Id'
     t.is(response.statusCode, 400);
 });
 
- /*
-**********************************************************
-Test for creating an event
-**********************************************************
-*/
-
-test('POST event', async (t) => {
+//HAPPY PATH for POST /event 
+test('POST /event', async (t) => {
     const event = {
         date: 2203,
         duration: 2,
@@ -381,12 +373,7 @@ test('POST event', async (t) => {
 });
 
 
-/*
-**********************************************************
-Test for creating an event that already exists
-**********************************************************
-*/
-
+//UNHAPPY PATH for POST /event [event already exists]
 test('POST event existing event', async (t) => {
     const event = exampleEvents[0];
     const response = await t.context.got.post('event', {
@@ -398,14 +385,10 @@ test('POST event existing event', async (t) => {
 });
 
 
-/*
-**********************************************************
-Test for creating an event with invalid data
-**********************************************************
-*/
+//UNHAPPY PATH for POST /event [invalid event data type]
 test('POST event invalid event', async (t) => {
     const event = {
-        date: 20231115, // Invalid data type (should be a string)
+        date: "20231115", // Invalid data type (should be a number)
         duration: "2", // Invalid data type (should be a number)
         eventId: "4", // Invalid data type (should be a number)
         documents: [
@@ -427,11 +410,7 @@ test('POST event invalid event', async (t) => {
 }); 
 
 
-/*
-**********************************************************
-Test for creating an event with negative values 
-**********************************************************
-*/
+//UNHAPPY PATH for POST /event [invalid event data type - negative values]
 test('POST event event with negative values', async (t) => {
     const event = {
         date: -20231115, // Negative number
@@ -469,12 +448,12 @@ const event1 = {
     day: "Wednesday",
     participants: pax
 };
+
 /*
 **********************************************************
 Test for adding an event to a calendar 
 **********************************************************
 */
-
 test('POST /calendar/{calendarId}/event Add event to calendar', async (t) => {
     const calendarId = 1;
     const response = await t.context.got.post(`calendar/${calendarId}/event`, {
@@ -554,8 +533,6 @@ test('POST /calendar/{calendarId}/event Add event to calendar with invalid data'
 Test for deleting an event from a calendar
 **********************************************************
 */
-
-
 test('DELETE /calendar/{calendarId}/event/{eventId} Delete event from calendar', async (t) => {
     const calendarId = 1;
     const eventId = 1;
@@ -604,7 +581,6 @@ test('DELETE /calendar/{calendarId}/event/{eventId} Delete event from nonexistin
 Test for adding a document
 **********************************************************
 */
-
 test('POST document', async (t) => {
     const document = {
         documentId: 10
@@ -624,7 +600,6 @@ test('POST document', async (t) => {
 Test for adding a document with invalid id
 **********************************************************
 */
-
 test('POST document invalid id', async (t) => {
     const document = {
         documentId: 'a'
@@ -639,12 +614,7 @@ test('POST document invalid id', async (t) => {
     t.is(response.statusCode, 400);
 });
 
-/*
-**********************************************************
-Test for adding a document that already exists
-**********************************************************
-*/
-
+//Test for adding a document that already exists
 test('POST document already existing document', async (t) => {
     const document = {
         documentId: 0
@@ -660,12 +630,7 @@ test('POST document already existing document', async (t) => {
 });
 
 
-/*
-**********************************************************
-Test for adding a document with negative id
-**********************************************************
-*/
-
+//Test for adding a document with negative id
 test('POST document negative id', async (t) => {
     const document = {
         documentId: -1
