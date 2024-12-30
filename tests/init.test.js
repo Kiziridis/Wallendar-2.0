@@ -3,6 +3,7 @@ const test = require('ava');
 const got = require('got');
 const express = require('express');
 const app = require('../index');
+const { exampleEvents } = require('../service/EventService');
 
 test.before(async (t) => {
     t.context.server = http.createServer(app);
@@ -412,35 +413,7 @@ Test for creating an event that already exists
 */
 
 test('POST event existing event', async (t) => {
-    const event = {
-        date: 20231001, // Number
-        duration: 2, // Number
-        eventId: 1, // Number
-        documents: [
-          { documentId: 1 }, // Number
-          { documentId: 2 } // Number
-        ],
-        time: 1000, // Number
-        place: "Conference Room A", // String
-        title: "Team Meeting", // String
-        day: "Monday", // String
-        participants: [
-          { 
-            password: "password1", // String
-            email_address: "alice@example.com", // String
-            userId: 1, // Number
-            preferred_language: "English", // String
-            username: "alice" // String
-          },
-          { 
-            password: "password2", // String
-            email_address: "bob@example.com", // String
-            userId: 2, // Number
-            preferred_language: "English", // String
-            username: "bob" // String
-          }
-        ]
-      };
+    const event = exampleEvents[0];
     const response = await t.context.got.post('event', {
         json: event,
         response: 'json',
