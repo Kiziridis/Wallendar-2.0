@@ -1,6 +1,19 @@
 'use strict';
 
-
+var examples = {};
+examples['application/json'] = {
+"senderId" : 6,
+"receiverId" : 1,
+"suggestedtimeslot" : [ {
+"date" : 5,
+"time" : 5
+}, {
+"date" : 5,
+"time" : 5
+} ],
+"coCreationId" : 0,
+"is_pending" : true
+};
 /**
  * Respond (accept/decline) to a co-creation request, approve / disapprove the suggested time slot.
  * FR13: The user must be able to co-create events. (accept - decline co-creation request) FR14: The user must be able to approve/ disapprove the suggested timeslot. 
@@ -12,20 +25,6 @@
  **/
 exports.coCreation = function(body,suggestedTimeslot,coCreationId) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "senderId" : 6,
-  "receiverId" : 1,
-  "suggestedtimeslot" : [ {
-    "date" : 5,
-    "time" : 5
-  }, {
-    "date" : 5,
-    "time" : 5
-  } ],
-  "coCreationId" : 0,
-  "is_pending" : true
-};
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {
@@ -33,7 +32,6 @@ exports.coCreation = function(body,suggestedTimeslot,coCreationId) {
     }
   });
 }
-
 
 /**
  * Receive a co-creation request.
@@ -45,20 +43,6 @@ exports.coCreation = function(body,suggestedTimeslot,coCreationId) {
  **/
 exports.receiveCoCreationRequest = function(senderId,coCreationId) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "senderId" : 6,
-  "receiverId" : 1,
-  "suggestedtimeslot" : [ {
-    "date" : 5,
-    "time" : 5
-  }, {
-    "date" : 5,
-    "time" : 5
-  } ],
-  "coCreationId" : 0,
-  "is_pending" : true
-};
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {
@@ -78,20 +62,7 @@ exports.receiveCoCreationRequest = function(senderId,coCreationId) {
  **/
 exports.sendCoCreationRequest = function(body,receiverIds) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "senderId" : 6,
-  "receiverId" : 1,
-  "suggestedtimeslot" : [ {
-    "date" : 5,
-    "time" : 5
-  }, {
-    "date" : 5,
-    "time" : 5
-  } ],
-  "coCreationId" : 0,
-  "is_pending" : true
-};
+
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {
