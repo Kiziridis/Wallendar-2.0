@@ -399,7 +399,7 @@ test('POST event', async (t) => {
       };
     const response = await t.context.got.post('event', {
         json: event,
-        response: 'json',
+        responseType: 'json',
         throwHttpErrors: false
     });
     t.is(response.statusCode, 200);
@@ -417,7 +417,7 @@ test('POST event existing event', async (t) => {
     const event = exampleEvents[0];
     const response = await t.context.got.post('event', {
         json: event,
-        response: 'json',
+        responseType: 'json',
         throwHttpErrors: false
     });
     t.is(response.statusCode, 400);
@@ -569,7 +569,7 @@ Test for adding an existing event to a calendar
 
 test('POST /calendar/{calendarId}/event Add existing event to calendar', async (t) => {
     const calendarId = 1;
-    const event = Events[0];
+    const event = exampleEvents[0];
       const response = await t.context.got.post(`calendar/${calendarId}/event`, {
         json: event,
         responseType: 'json',
