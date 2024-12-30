@@ -74,13 +74,13 @@ test('PUT /calendar/{calendarId}/event/{eventId} Edit event successfully', async
           { documentId: 6 }
         ],
         time: 1,
-        place: "Main Hall",
-        title: "Annual Conference",
+        place: "Auth ",
+        title: " Sfhmmy",
         day: "Wednesday",
         participants: [
             {
-                password: "securepassword1",
-                email_address: "user1@example.com",
+                password: "softeng2021",
+                email_address: "user1@auth.ece.com",
                 userId: 1,
                 preferred_language: "English",
                 username: "user1"
