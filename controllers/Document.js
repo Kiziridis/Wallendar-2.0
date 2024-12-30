@@ -1,49 +1,54 @@
 'use strict';
 
-// Import the utils module for writing JSON responses
 var utils = require('../utils/writer.js');
+var Document = require('../service/DocumentService');
 
-// Import the CoCreationRequest service module
-var CoCreationRequest = require('../service/CoCreationRequestService');
-
-// Function to handle co-creation
-module.exports.coCreation = function coCreation (req, res, next, body, suggestedTimeslot, coCreationId) {
-  // Call the coCreation function from the CoCreationRequest service
-  CoCreationRequest.coCreation(body, suggestedTimeslot, coCreationId)
+module.exports.addDocument = function addDocument (req, res, next, body) {
+  Document.addDocument(body)
     .then(function (response) {
-      // If the promise resolves, write the JSON response
-      utils.writeJson(res, response);
+      utils.writeJson(res, response, response.code);
     })
     .catch(function (response) {
-      // If the promise rejects, write the JSON response
-      utils.writeJson(res, response);
+      utils.writeJson(res, response, response.code);
     });
 };
 
-// Function to handle receiving a co-creation request
-module.exports.receiveCoCreationRequest = function receiveCoCreationRequest (req, res, next, senderId, coCreationId) {
-  // Call the receiveCoCreationRequest function from the CoCreationRequest service
-  CoCreationRequest.receiveCoCreationRequest(senderId, coCreationId)
+module.exports.addDocumentEvent = function addDocumentEvent (req, res, next, body, calendarId, eventId, documentId) {
+  Document.addDocumentEvent(body, calendarId, eventId, documentId)
     .then(function (response) {
-      // If the promise resolves, write the JSON response
-      utils.writeJson(res, response);
+      utils.writeJson(res, response, response.code);
     })
     .catch(function (response) {
-      // If the promise rejects, write the JSON response
-      utils.writeJson(res, response);
+      utils.writeJson(res, response, response.code);
     });
 };
 
-// Function to handle sending a co-creation request
-module.exports.sendCoCreationRequest = function sendCoCreationRequest (req, res, next, body, receiverIds) {
-  // Call the sendCoCreationRequest function from the CoCreationRequest service
-  CoCreationRequest.sendCoCreationRequest(body, receiverIds)
+module.exports.deleteDocument = function deleteDocument (req, res, next, documentId) {
+  Document.deleteDocument(documentId)
     .then(function (response) {
-      // If the promise resolves, write the JSON response
-      utils.writeJson(res, response);
+      utils.writeJson(res, response, response.code);
     })
     .catch(function (response) {
-      // If the promise rejects, write the JSON response
-      utils.writeJson(res, response);
+      utils.writeJson(res, response, response.code);
+    });
+};
+
+module.exports.deleteDocumentEvent = function deleteDocumentEvent (req, res, next, calendarId, eventId, documentId) {
+  Document.deleteDocumentEvent(calendarId, eventId, documentId)
+    .then(function (response) {
+      utils.writeJson(res, response, response.code);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response, response.code);
+    });
+};
+
+module.exports.viewDocument = function viewDocument (req, res, next, documentId) {
+  Document.viewDocument(documentId)
+    .then(function (response) {
+      utils.writeJson(res, response, response.code);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response, response.code);
     });
 };
