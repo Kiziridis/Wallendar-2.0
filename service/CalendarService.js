@@ -123,7 +123,6 @@ exports.addAllCalendars = function(body, userIds, calendarIds) {
  * calendarId Integer Id of the user's calendar
  * returns Event
  **/
-
 exports.addEvent = function(body, calendarId) {
   return new Promise(function(resolve, reject) {
     // Validate the input body
@@ -158,7 +157,7 @@ exports.addEvent = function(body, calendarId) {
       });
       return;
     }
-    
+
     // Create the event
     const event = createEvent(body);
 
@@ -220,16 +219,16 @@ exports.deleteEvent = function(calendarId, eventId) {
  * calendarIds List Ids of the users calendars
  * returns List
  **/
+var examples = {};
+examples['application/json'] = [ {
+"date" : "{}",
+"time" : "{}"
+}, {
+"date" : "{}",
+"time" : "{}"
+} ];
 exports.findCommonFreeSpots = function(userIds,calendarIds) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = [ {
-  "date" : "{}",
-  "time" : "{}"
-}, {
-  "date" : "{}",
-  "time" : "{}"
-} ];
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {
@@ -247,14 +246,6 @@ exports.findCommonFreeSpots = function(userIds,calendarIds) {
  **/
 exports.findFreeSpots = function(calendarId) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = [ {
-  "date" : "{}",
-  "time" : "{}"
-}, {
-  "date" : "{}",
-  "time" : "{}"
-} ];
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {
