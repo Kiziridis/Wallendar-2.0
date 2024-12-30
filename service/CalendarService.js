@@ -195,7 +195,6 @@ exports.deleteEvent = function(calendarId, eventId) {
       });
       return;
     }
-
     // Find the event index in the calendar
     const eventIndex = exampleCalendars[calendarId].findIndex(e => e.eventId === eventId);
     if (eventIndex === -1) {
