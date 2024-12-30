@@ -13,7 +13,7 @@ var Card = require('../service/CardService');
  * @param {object} body - The card details to add.
  * @param {string} walletId - The ID of the wallet to which the card should be added.
  */
-module.exports.addCard = function addCard(req, res, next, body, walletId) {
+module.exports.addCard = function addCard(_req, res, _next, body, walletId) {
   Wallet.addCard(body, walletId)
     .then(function(response) {
       utils.writeJson(res, response, response.code);
@@ -32,7 +32,7 @@ module.exports.addCard = function addCard(req, res, next, body, walletId) {
  * @param {string} walletId - The ID of the wallet from which the card should be removed.
  * @param {string} cardNumber - The card number to remove.
  */
-module.exports.removeCard = function removeCard(req, res, next, walletId, cardNumber) {
+module.exports.removeCard = function removeCard(_req, res, _next, walletId, cardNumber) {
   Wallet.removeCard(walletId, cardNumber)
     .then(function(response) {
       utils.writeJson(res, response, response.code);
@@ -51,7 +51,7 @@ module.exports.removeCard = function removeCard(req, res, next, walletId, cardNu
  * @param {object} body - The transaction details.
  * @param {string} walletId - The ID of the wallet using the card.
  */
-module.exports.useCard = function useCard(req, res, next, body, walletId) {
+module.exports.useCard = function useCard(_req, res, _next, body, walletId) {
   Wallet.useCard(body, walletId)
     .then(function(response) {
       utils.writeJson(res, response, response.code);
@@ -69,7 +69,7 @@ module.exports.useCard = function useCard(req, res, next, body, walletId) {
  * @param {function} next - The next middleware function.
  * @param {string} walletId - The ID of the wallet whose cards are to be viewed.
  */
-module.exports.viewCards = function viewCards(req, res, next, walletId) {
+module.exports.viewCards = function viewCards(_req, res, _next, walletId) {
   Wallet.viewCards(walletId)
     .then(function(response) {
       utils.writeJson(res, response, response.code);

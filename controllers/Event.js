@@ -6,8 +6,10 @@ var utils = require('../utils/writer.js');
 // Import the Event service module
 var Event = require('../service/EventService');
 
+
+module.exports.createEvent = function createEvent (_req, res, _next, body) {
 // Function to handle creating an event
-module.exports.createEvent = function createEvent (req, res, next, body) {
+
   // Call the createEvent function from the Event service
   Event.createEvent(body)
     .then(function (response) {
@@ -20,8 +22,10 @@ module.exports.createEvent = function createEvent (req, res, next, body) {
     });
 };
 
+
+module.exports.editEvent = function editEvent (_req, res, _next, body, calendarId, eventId) {
 // Function to handle editing an event
-module.exports.editEvent = function editEvent (req, res, next, body, calendarId, eventId) {
+
   // Call the editEvent function from the Event service
   Event.editEvent(body, calendarId, eventId)
     .then(function (response) {
