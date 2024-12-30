@@ -3,7 +3,7 @@
 var utils = require('../utils/writer.js');
 var Calendar = require('../service/CalendarService');
 
-module.exports.addAllCalendars = function addAllCalendars (_req, res, next, body, userIds, calendarIds) {
+module.exports.addAllCalendars = function addAllCalendars (_req, res, _next, body, userIds, calendarIds) {
   Calendar.addAllCalendars(body, userIds, calendarIds)
     .then(function (response) {
       utils.writeJson(res, response, response.code);

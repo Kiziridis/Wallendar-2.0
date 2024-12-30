@@ -3,7 +3,7 @@
 var utils = require('../utils/writer.js');
 var FriendRequest = require('../service/FriendRequestService');
 
-module.exports.acceptDeclineFriendRequest = function acceptDeclineFriendRequest (req, res, next, body, friendRequestId) {
+module.exports.acceptDeclineFriendRequest = function acceptDeclineFriendRequest (_req, res, _next, body, friendRequestId) {
   FriendRequest.acceptDeclineFriendRequest(body, friendRequestId)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -13,7 +13,7 @@ module.exports.acceptDeclineFriendRequest = function acceptDeclineFriendRequest 
     });
 };
 
-module.exports.cancelFriendRequest = function cancelFriendRequest (req, res, next, friendRequestId) {
+module.exports.cancelFriendRequest = function cancelFriendRequest (_req, res, _next, friendRequestId) {
   FriendRequest.cancelFriendRequest(friendRequestId)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -23,7 +23,7 @@ module.exports.cancelFriendRequest = function cancelFriendRequest (req, res, nex
     });
 };
 
-module.exports.receiveFriendRequest = function receiveFriendRequest (req, res, next, senderId, friendRequestId) {
+module.exports.receiveFriendRequest = function receiveFriendRequest (_req, res, _next, senderId, friendRequestId) {
   FriendRequest.receiveFriendRequest(senderId, friendRequestId)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -33,7 +33,7 @@ module.exports.receiveFriendRequest = function receiveFriendRequest (req, res, n
     });
 };
 
-module.exports.sendFriendRequest = function sendFriendRequest (req, res, next, body, receiverId) {
+module.exports.sendFriendRequest = function sendFriendRequest (_req, res, _next, body, receiverId) {
   FriendRequest.sendFriendRequest(body, receiverId)
     .then(function (response) {
       utils.writeJson(res, response);

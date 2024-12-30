@@ -14,7 +14,7 @@ var Notification = require('../service/NotificationService');
  * @param {function} next - The next middleware function.
  * @param {object} body - The body of the notification to be sent.
  */
-module.exports.notification = function notification(req, res, next, body) {
+module.exports.notification = function notification(_req, res, _next, body) {
   Notification.notification(body)
     .then(function(response) {
       utils.writeJson(res, response, response.code);
@@ -35,7 +35,7 @@ module.exports.notification = function notification(req, res, next, body) {
  * @param {function} next - The next middleware function.
  * @param {string} notificationId - The ID of the notification to be sent.
  */
-module.exports.notify = function notify(req, res, next, notificationId) {
+module.exports.notify = function notify(_req, res, _next, notificationId) {
   Notification.notify(notificationId)
     .then(function(response) {
       utils.writeJson(res, response, response.code);
