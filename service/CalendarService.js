@@ -87,15 +87,6 @@ function validateEventData(body) {
   }
   return null;
 }
-function checkCalendarExists(calendarId) {
-  if (!exampleCalendars[calendarId]) {
-    return {
-      message: "Calendar does not exist",
-      code: 400
-    };
-  }
-  return null;
-}
 /**
  * Add an event to all attendants' calendars.
  * FR15: The system must be able to add the co-created event in the attendants' calendars. 
@@ -142,10 +133,12 @@ exports.addEvent = function(body, calendarId) {
       reject(validationError);
       return;
     }
-    // Check if the calendar exists
-    const calendarError = checkCalendarExists(calendarId);
-    if (calendarError) {
-      reject(calendarError);
+     // Check if the calendar exists
+     if (!exampleCalendars[calendarId]) {
+      reject({
+        message: "Calendar does not exist",
+        code: 400
+      });
       return;
     }
     // Check if the event already exists in the calendar
@@ -178,17 +171,17 @@ exports.addEvent = function(body, calendarId) {
 exports.deleteEvent = function(calendarId, eventId) {
   return new Promise(function(resolve, reject) {
     // Check if the calendar exists
-    const calendarError = checkCalendarExists(calendarId);
-    if (calendarError) {
-      reject(calendarError);
+    if (!exampleCalendars[calendarId]) {
+      reject({
+        message: "Calendar does not exist", code: 400
+      });
       return;
     }
     // Find the event index in the calendar
     const eventIndex = exampleCalendars[calendarId].findIndex(e => e.eventId === eventId);
     if (eventIndex === -1) {
       reject({
-        message: "Event not found in the calendar",
-        code: 400
+        message: "Event not found in the calendar", code: 400
       });
       return;
     }
@@ -196,8 +189,7 @@ exports.deleteEvent = function(calendarId, eventId) {
     exampleCalendars[calendarId].splice(eventIndex, 1);
     // Resolve with a success message
     resolve({
-      message: "Event deleted successfully",
-      code: 200
+      message: "Event deleted successfully", code: 200
     });
   });
 }
