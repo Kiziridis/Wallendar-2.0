@@ -51,6 +51,8 @@ const Events = [
     ]
   }
 ];
+// Export the Events array
+exports.Events = Events;
 
 const exampleCalendars = {
   1: [Events[0], Events[1]],

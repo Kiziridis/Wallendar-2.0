@@ -3,6 +3,7 @@ const test = require('ava');
 const got = require('got');
 const express = require('express');
 const app = require('../index');
+const { Events } = require('../service/CalendarService');
 
 const pax = [
     {
@@ -535,23 +536,7 @@ Test for adding an existing event to a calendar
 
 test('POST /calendar/{calendarId}/event Add existing event to calendar', async (t) => {
     const calendarId = 1;
-    const event =  {
-        date: 20231001,
-        duration: 2,
-        eventId: 1,
-        documents: [
-          { documentId: 1 },
-          { documentId: 2 }
-        ],
-        time: 10,
-        place: "Conference Room A",
-        title: "Team Meeting",
-        day: "Monday",
-        participants: [
-          { participantId: 1, name: "Alice" },
-          { participantId: 2, name: "Bob" }
-        ]
-      };
+    const event =  Events[0];
       const response = await t.context.got.post(`calendar/${calendarId}/event`, {
         json: event,
         responseType: 'json',
