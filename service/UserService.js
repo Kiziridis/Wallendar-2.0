@@ -39,7 +39,6 @@ const users = [
 ];
 
 
-
 exports.searchUsers = function(username) {
   return new Promise(function(resolve, reject) {
     const user = users.find(u => u.user.username === username );

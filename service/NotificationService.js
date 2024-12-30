@@ -1,6 +1,15 @@
 'use strict';
 
-
+const notifications = {
+  1: {
+    notificationTime: 6,
+    notificationId: 1
+  },
+  2: {
+    notificationTime: 10,
+    notificationId: 2
+  }
+}
 
 /**
  * Create a notification.
@@ -26,7 +35,6 @@ exports.notification = function(body) {
   });
 }
 
-
 /**
  * Receive a notification.
  * FR6: The system must be able to notify the user about their upocoming events (receive notification). 
@@ -45,15 +53,4 @@ exports.notify = function(notificationId) {
       });
     }
   });
-}
-
-const notifications = {
-  1: {
-    notificationTime: 6,
-    notificationId: 1
-  },
-  2: {
-    notificationTime: 10,
-    notificationId: 2
-  }
 }
