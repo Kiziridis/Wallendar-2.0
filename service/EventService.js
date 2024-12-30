@@ -86,6 +86,8 @@ const exampleEvents = [
     ]
   }
 ];
+// Export the exampleEvents array
+exports.exampleEvents = exampleEvents;
 
 const exampleCalendars = {
   1: [exampleEvents[0], exampleEvents[1]],
