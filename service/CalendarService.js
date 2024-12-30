@@ -87,6 +87,15 @@ function validateEventData(body) {
   }
   return null;
 }
+function checkCalendarExists(calendarId) {
+  if (!exampleCalendars[calendarId]) {
+    return {
+      message: "Calendar does not exist",
+      code: 400
+    };
+  }
+  return null;
+}
 /**
  * Add an event to all attendants' calendars.
  * FR15: The system must be able to add the co-created event in the attendants' calendars. 
@@ -133,12 +142,10 @@ exports.addEvent = function(body, calendarId) {
       reject(validationError);
       return;
     }
-     // Check if the calendar exists
-     if (!exampleCalendars[calendarId]) {
-      reject({
-        message: "Calendar does not exist",
-        code: 400
-      });
+    // Check if the calendar exists
+    const calendarError = checkCalendarExists(calendarId);
+    if (calendarError) {
+      reject(calendarError);
       return;
     }
     // Check if the event already exists in the calendar
@@ -171,11 +178,9 @@ exports.addEvent = function(body, calendarId) {
 exports.deleteEvent = function(calendarId, eventId) {
   return new Promise(function(resolve, reject) {
     // Check if the calendar exists
-    if (!exampleCalendars[calendarId]) {
-      reject({
-        message: "Calendar does not exist",
-        code: 400
-      });
+    const calendarError = checkCalendarExists(calendarId);
+    if (calendarError) {
+      reject(calendarError);
       return;
     }
     // Find the event index in the calendar
