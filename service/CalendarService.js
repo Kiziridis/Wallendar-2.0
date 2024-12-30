@@ -59,6 +59,19 @@ const exampleCalendars = {
   2: [Events[2]]
 };
 
+function createEvent(body) {
+  return {
+    date: body.date,
+    duration: body.duration,
+    eventId: body.eventId,
+    documents: body.documents || [],
+    time: body.time,
+    place: body.place,
+    title: body.title,
+    day: body.day,
+    participants: body.participants
+  };
+}
 /**
  * Add an event to all attendants' calendars.
  * FR15: The system must be able to add the co-created event in the attendants' calendars. 
@@ -87,17 +100,7 @@ exports.addAllCalendars = function(body, userIds, calendarIds) {
     }
 
     // Create the event
-    const event = {
-      date: body.date,
-      duration: body.duration,
-      eventId: body.eventId,
-      documents: body.documents || [],
-      time: body.time,
-      place: body.place,
-      title: body.title,
-      day: body.day,
-      participants: body.participants
-    };
+    const event = createEvent(body);
 
     // Add the event to each specified calendar
     calendarIds.forEach(calendarId => {
@@ -155,19 +158,9 @@ exports.addEvent = function(body, calendarId) {
       });
       return;
     }
-
+    
     // Create the event
-    const event = {
-      date: body.date,
-      duration: body.duration,
-      eventId: body.eventId,
-      documents: body.documents || [],
-      time: body.time,
-      place: body.place,
-      title: body.title,
-      day: body.day,
-      participants: body.participants
-    };
+    const event = createEvent(body);
 
     // Add the event to the calendar
     if (!exampleCalendars[calendarId]) {
@@ -227,7 +220,6 @@ exports.deleteEvent = function(calendarId, eventId) {
  * calendarIds List Ids of the users calendars
  * returns List
  **/
-
 exports.findCommonFreeSpots = function(userIds,calendarIds) {
   return new Promise(function(resolve, reject) {
     var examples = {};

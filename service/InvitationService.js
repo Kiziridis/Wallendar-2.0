@@ -1,6 +1,5 @@
 'use strict';
 
-
 /**
  * Accept or decline an event invitation.
  * FR9: The user must be able to manage their event invitations. (accept or decline event invitations) 
