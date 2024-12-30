@@ -1,5 +1,6 @@
 'use strict';
 
+// dummy user data
 const users = [
   {
     userId: 1,

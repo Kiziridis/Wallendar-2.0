@@ -1,5 +1,5 @@
 'use strict';
-
+// dummy wallet data
 const wallets = [
   {
     walletId: 1,

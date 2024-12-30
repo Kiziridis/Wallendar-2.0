@@ -1,5 +1,6 @@
 'use strict';
 
+// dummy notification data
 const notifications = {
   1: {
     notificationTime: 6,
