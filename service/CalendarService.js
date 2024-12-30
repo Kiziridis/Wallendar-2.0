@@ -51,7 +51,6 @@ const Events = [
     ]
   }
 ];
-
 exports.Events = Events; //Export the Events array
 
 const exampleCalendars = {
@@ -72,6 +71,22 @@ function createEvent(body) {
     participants: body.participants
   };
 }
+function validateEventData(body) {
+  if (!body || typeof body.date !== 'number' || body.date < 0 || 
+      typeof body.duration !== 'number' || body.duration < 0 || 
+      typeof body.eventId !== 'number' || body.eventId < 0 || 
+      typeof body.time !== 'number' || body.time < 0 || 
+      typeof body.place !== 'string' || 
+      typeof body.title !== 'string' || 
+      typeof body.day !== 'string' || 
+      !Array.isArray(body.participants)) {
+    return {
+      message: "Invalid event data types or negative values",
+      code: 400
+    };
+  }
+  return null;
+}
 /**
  * Add an event to all attendants' calendars.
  * FR15: The system must be able to add the co-created event in the attendants' calendars. 
@@ -84,18 +99,9 @@ function createEvent(body) {
 exports.addAllCalendars = function(body, userIds, calendarIds) {
   return new Promise(function(resolve, reject) {
     // Validate the input body
-    if (!body || typeof body.date !== 'number' || body.date < 0 || 
-        typeof body.duration !== 'number' || body.duration < 0 || 
-        typeof body.eventId !== 'number' || body.eventId < 0 || 
-        typeof body.time !== 'number' || body.time < 0 || 
-        typeof body.place !== 'string' || 
-        typeof body.title !== 'string' || 
-        typeof body.day !== 'string' || 
-        !Array.isArray(body.participants)) {
-      reject({
-        message: "Invalid event data types or negative values",
-        code: 400
-      });
+    const validationError = validateEventData(body);
+    if (validationError) {
+      reject(validationError);
       return;
     }
     // Create the event
@@ -122,18 +128,9 @@ exports.addAllCalendars = function(body, userIds, calendarIds) {
 exports.addEvent = function(body, calendarId) {
   return new Promise(function(resolve, reject) {
     // Validate the input body
-    if (!body || typeof body.date !== 'number' || body.date < 0 || 
-        typeof body.duration !== 'number' || body.duration < 0 || 
-        typeof body.eventId !== 'number' || body.eventId < 0 || 
-        typeof body.time !== 'number' || body.time < 0 || 
-        typeof body.place !== 'string' || 
-        typeof body.title !== 'string' || 
-        typeof body.day !== 'string' || 
-        !Array.isArray(body.participants)) {
-      reject({
-        message: "Invalid event data types or negative values",
-        code: 400
-      });
+    const validationError = validateEventData(body);
+    if (validationError) {
+      reject(validationError);
       return;
     }
      // Check if the calendar exists
