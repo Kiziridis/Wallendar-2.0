@@ -1,6 +1,6 @@
 'use strict';
 
-
+// dummy wallet data
 const wallets = [
   {
     walletId: 1,
@@ -58,8 +58,6 @@ const wallets = [
   {walletId: 6,
   cards:[]}
 ];
-
-
 
 /**
  * Add a new card in your wallet.

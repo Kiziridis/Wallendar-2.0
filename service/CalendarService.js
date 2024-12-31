@@ -51,14 +51,42 @@ const Events = [
     ]
   }
 ];
+exports.Events = Events; //Export the Events array
 
 const exampleCalendars = {
   1: [Events[0], Events[1]],
   2: [Events[2]]
 };
 
-
-// module.exports = { Events, exampleCalendars };
+function createEvent(body) {
+  return {
+    date: body.date,
+    duration: body.duration,
+    eventId: body.eventId,
+    documents: body.documents || [],
+    time: body.time,
+    place: body.place,
+    title: body.title,
+    day: body.day,
+    participants: body.participants
+  };
+}
+function validateEventData(body) {
+  if (!body || typeof body.date !== 'number' || body.date < 0 || 
+      typeof body.duration !== 'number' || body.duration < 0 || 
+      typeof body.eventId !== 'number' || body.eventId < 0 || 
+      typeof body.time !== 'number' || body.time < 0 || 
+      typeof body.place !== 'string' || 
+      typeof body.title !== 'string' || 
+      typeof body.day !== 'string' || 
+      !Array.isArray(body.participants)) {
+    return {
+      message: "Invalid event data types or negative values",
+      code: 400
+    };
+  }
+  return null;
+}
 /**
  * Add an event to all attendants' calendars.
  * FR15: The system must be able to add the co-created event in the attendants' calendars. 
@@ -71,34 +99,13 @@ const exampleCalendars = {
 exports.addAllCalendars = function(body, userIds, calendarIds) {
   return new Promise(function(resolve, reject) {
     // Validate the input body
-    if (!body || typeof body.date !== 'number' || body.date < 0 || 
-        typeof body.duration !== 'number' || body.duration < 0 || 
-        typeof body.eventId !== 'number' || body.eventId < 0 || 
-        typeof body.time !== 'number' || body.time < 0 || 
-        typeof body.place !== 'string' || 
-        typeof body.title !== 'string' || 
-        typeof body.day !== 'string' || 
-        !Array.isArray(body.participants)) {
-      reject({
-        message: "Invalid event data types or negative values",
-        code: 400
-      });
+    const validationError = validateEventData(body);
+    if (validationError) {
+      reject(validationError);
       return;
     }
-
     // Create the event
-    const event = {
-      date: body.date,
-      duration: body.duration,
-      eventId: body.eventId,
-      documents: body.documents || [],
-      time: body.time,
-      place: body.place,
-      title: body.title,
-      day: body.day,
-      participants: body.participants
-    };
-
+    const event = createEvent(body);
     // Add the event to each specified calendar
     calendarIds.forEach(calendarId => {
       if (!exampleCalendars[calendarId]) {
@@ -106,12 +113,10 @@ exports.addAllCalendars = function(body, userIds, calendarIds) {
       }
       exampleCalendars[calendarId].push(event);
     });
-
     // Resolve with the updated calendars
     resolve(exampleCalendars);
   });
 };
-
 /**
  * Add a new event in your calendar.
  * FR7: The user must be able to manage an event. (add event) 
@@ -120,22 +125,12 @@ exports.addAllCalendars = function(body, userIds, calendarIds) {
  * calendarId Integer Id of the user's calendar
  * returns Event
  **/
-
 exports.addEvent = function(body, calendarId) {
   return new Promise(function(resolve, reject) {
     // Validate the input body
-    if (!body || typeof body.date !== 'number' || body.date < 0 || 
-        typeof body.duration !== 'number' || body.duration < 0 || 
-        typeof body.eventId !== 'number' || body.eventId < 0 || 
-        typeof body.time !== 'number' || body.time < 0 || 
-        typeof body.place !== 'string' || 
-        typeof body.title !== 'string' || 
-        typeof body.day !== 'string' || 
-        !Array.isArray(body.participants)) {
-      reject({
-        message: "Invalid event data types or negative values",
-        code: 400
-      });
+    const validationError = validateEventData(body);
+    if (validationError) {
+      reject(validationError);
       return;
     }
      // Check if the calendar exists
@@ -146,7 +141,6 @@ exports.addEvent = function(body, calendarId) {
       });
       return;
     }
-
     // Check if the event already exists in the calendar
     if (exampleCalendars[calendarId] && exampleCalendars[calendarId].find(e => e.eventId === body.eventId)) {
       reject({
@@ -155,26 +149,13 @@ exports.addEvent = function(body, calendarId) {
       });
       return;
     }
-
     // Create the event
-    const event = {
-      date: body.date,
-      duration: body.duration,
-      eventId: body.eventId,
-      documents: body.documents || [],
-      time: body.time,
-      place: body.place,
-      title: body.title,
-      day: body.day,
-      participants: body.participants
-    };
-
+    const event = createEvent(body);
     // Add the event to the calendar
     if (!exampleCalendars[calendarId]) {
       exampleCalendars[calendarId] = [];
     }
     exampleCalendars[calendarId].push(event);
-
     // Resolve with the created event
     resolve(event);
   });
@@ -187,35 +168,28 @@ exports.addEvent = function(body, calendarId) {
  * eventId Integer Id of the event that needs to be deleted
  * returns Success
  **/
-
 exports.deleteEvent = function(calendarId, eventId) {
   return new Promise(function(resolve, reject) {
     // Check if the calendar exists
     if (!exampleCalendars[calendarId]) {
       reject({
-        message: "Calendar does not exist",
-        code: 400
+        message: "Calendar does not exist", code: 400
       });
       return;
     }
-
     // Find the event index in the calendar
     const eventIndex = exampleCalendars[calendarId].findIndex(e => e.eventId === eventId);
     if (eventIndex === -1) {
       reject({
-        message: "Event not found in the calendar",
-        code: 400
+        message: "Event not found in the calendar", code: 400
       });
       return;
     }
-
     // Remove the event from the calendar
     exampleCalendars[calendarId].splice(eventIndex, 1);
-
     // Resolve with a success message
     resolve({
-      message: "Event deleted successfully",
-      code: 200
+      message: "Event deleted successfully", code: 200
     });
   });
 }
@@ -223,21 +197,20 @@ exports.deleteEvent = function(calendarId, eventId) {
 /**
  * Find common free spots in the users' calendar
  * FR12: The system must be able to find the common free spots in the users' calendar. 
- *
  * userIds List Ids of the users
  * calendarIds List Ids of the users calendars
  * returns List
  **/
+var examples = {};
+examples['application/json'] = [ {
+"date" : "{}",
+"time" : "{}"
+}, {
+"date" : "{}",
+"time" : "{}"
+} ];
 exports.findCommonFreeSpots = function(userIds,calendarIds) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = [ {
-  "date" : "{}",
-  "time" : "{}"
-}, {
-  "date" : "{}",
-  "time" : "{}"
-} ];
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {
@@ -245,25 +218,14 @@ exports.findCommonFreeSpots = function(userIds,calendarIds) {
     }
   });
 }
-
-
 /**
  * Find free spots in the user's calendar
  * FR10: The system must be able to find the free spots in the user's calendar. 
- *
  * calendarId Integer Id of the user's calendar
  * returns List
  **/
 exports.findFreeSpots = function(calendarId) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = [ {
-  "date" : "{}",
-  "time" : "{}"
-}, {
-  "date" : "{}",
-  "time" : "{}"
-} ];
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {
@@ -271,4 +233,3 @@ exports.findFreeSpots = function(calendarId) {
     }
   });
 }
-
