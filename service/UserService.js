@@ -1,13 +1,6 @@
 'use strict';
 
-/**
- * Search for other users.
- * FR5: The user must be able to search for other users by username. 
- *
- * username String username provided for the search
- * returns Users
- **/
-
+// dummy user data
 const users = [
   {
     userId: 1,
@@ -38,8 +31,13 @@ const users = [
   }
 ];
 
-
-
+/**
+ * Search for other users.
+ * FR5: The user must be able to search for other users by username. 
+ *
+ * username String username provided for the search
+ * returns Users
+ **/
 exports.searchUsers = function(username) {
   return new Promise(function(resolve, reject) {
     const user = users.find(u => u.user.username === username );

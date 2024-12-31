@@ -70,7 +70,6 @@ module.exports.findCommonFreeSpots = function findCommonFreeSpots (_req, res, _n
       // If the promise rejects, write the JSON response with the response code
       utils.writeJson(res, response, response.code);
     });
-
 };
 
 module.exports.findFreeSpots = function findFreeSpots (_req, res, _next, calendarId) {

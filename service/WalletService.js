@@ -1,6 +1,6 @@
 'use strict';
 
-
+// dummy wallet data
 const wallets = [
   {
     walletId: 1,
@@ -59,8 +59,6 @@ const wallets = [
   cards:[]}
 ];
 
-
-
 /**
  * Add a new card in your wallet.
  * FR2: The user must be able to manage their cards. (add card) 
@@ -79,9 +77,7 @@ exports.addCard = function(body, walletId) {
       });
       return;
     }
-    if (Object.keys(examples).length > 0) {
-      resolve(examples['application/json']);
-    } else {
+    else {
       resolve();
     }
   });

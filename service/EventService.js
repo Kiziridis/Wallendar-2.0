@@ -86,14 +86,13 @@ const exampleEvents = [
     ]
   }
 ];
+// Export the exampleEvents array
+exports.exampleEvents = exampleEvents;
 
 const exampleCalendars = {
   1: [exampleEvents[0], exampleEvents[1]],
   2: [exampleEvents[2]]
 };
-
-
-
 
 
 exports.createEvent = function(body) {
@@ -192,4 +191,3 @@ exports.editEvent = function(body, calendarId, eventId) {
     });
   });
 }
-

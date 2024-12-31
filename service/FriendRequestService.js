@@ -1,6 +1,5 @@
 'use strict';
 
-
 /**
  * Accept or decline a friend request.
  * FR1: The user must be able to manage friend requests. (accept or decline friend request) 
