@@ -56,7 +56,8 @@ const wallets = [
     }]
   }, 
   {walletId: 6,
-  cards:[]}
+  cards:[] // wallet with no cards
+  }
 ];
 
 /**
@@ -69,7 +70,7 @@ const wallets = [
  **/
 exports.addCard = function(body, walletId) {
   return new Promise(function(resolve, reject) {
-    //const wallet = wallets.find(w => w.walletId === walletId);
+    // check if walletId is valid
     if (walletId <= 0 || !wallets[walletId]) {
       reject({
         message: 'Invalid walletId',
@@ -95,9 +96,11 @@ exports.addCard = function(body, walletId) {
 
 exports.removeCard = function(walletId, cardNumber) {
   return new Promise(function(resolve, reject) {
+    // Find the wallet with the given walletId
     const wallet = wallets.find(wallet => wallet.walletId === walletId);
     
     if (wallet) {
+      // Find the card with the given cardNumber
       const cardnumber = wallet.cards.find(card => card.cardNumber === cardNumber);
       if(cardnumber){
         resolve({ message: 'Card removed successfully' });
@@ -121,8 +124,10 @@ exports.removeCard = function(walletId, cardNumber) {
  **/
 exports.useCard = function(body, walletId) {
   return new Promise(function(resolve, reject) {
+    // Find the wallet with the given walletId
     const wallet = wallets.find(wallet => wallet.walletId === walletId);
     if (wallet) {
+      // Check if NFC is on in the request body
       if (body.NFCon) {
         resolve({ message: 'Card used successfully' });
       } else {
@@ -144,6 +149,7 @@ exports.useCard = function(body, walletId) {
 
 exports.viewCards = function (walletId) {
   return new Promise(function (resolve, reject) {
+    // Find the wallet with the given walletId
     const wallet = wallets.find(wallet => wallet.walletId === walletId);
     if (wallet) {
       resolve(wallet.cards); // Return only the cards from the wallet
