@@ -23,7 +23,7 @@ module.exports.acceptDeclineEventInvitation = function acceptDeclineEventInvitat
 };
 
 
-module.exports.cancelInvite = function cancelInvite (_req, res, _next, calendarId, eventId, invitationId) {
+module.exports.cancelInvite = function cancelInvite (_req, res, _, calendarId, eventId, invitationId) {
 // Function to handle canceling an invitation
 
   // Call the cancelInvite function from the Invitation service
@@ -39,7 +39,7 @@ module.exports.cancelInvite = function cancelInvite (_req, res, _next, calendarI
 };
 
 
-module.exports.inviteEvent = function inviteEvent (_req, res, _next, body, inviteeId, calendarId, eventId) {
+module.exports.inviteEvent = function inviteEvent (_req, res, _, body, inviteeId, calendarId, eventId) {
 // Function to handle inviting someone to an event
 
   // Call the inviteEvent function from the Invitation service
@@ -54,7 +54,7 @@ module.exports.inviteEvent = function inviteEvent (_req, res, _next, body, invit
     });
 };
 
-module.exports.receiveEventInvite = function receiveEventInvite (_req, res, _next, inviterId, calendarId, eventId, invitationId) {
+module.exports.receiveEventInvite = function receiveEventInvite (_req, res, _, inviterId, calendarId, eventId, invitationId) {
 // Function to handle receiving an event invitation
 
   // Call the receiveEventInvite function from the Invitation service

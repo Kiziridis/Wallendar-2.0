@@ -82,7 +82,7 @@ module.exports.deleteDocument = function deleteDocument(_req, res, _next, docume
  * @param {string} eventId - The ID of the event from which to delete the document.
  * @param {string} documentId - The ID of the document to delete from the event.
  */
-module.exports.deleteDocumentEvent = function deleteDocumentEvent(_req, res, _next, calendarId, eventId, documentId) {
+module.exports.deleteDocumentEvent = function deleteDocumentEvent(_req, res, _, calendarId, eventId, documentId) {
   Document.deleteDocumentEvent(calendarId, eventId, documentId)
     .then(function(response) {
       utils.writeJson(res, response, response.code);
@@ -103,7 +103,7 @@ module.exports.deleteDocumentEvent = function deleteDocumentEvent(_req, res, _ne
  * @param {function} next - The next middleware function.
  * @param {string} documentId - The ID of the document to view.
  */
-module.exports.viewDocument = function viewDocument(_req, res, _next, documentId) {
+module.exports.viewDocument = function viewDocument(_req, res, _, documentId) {
   Document.viewDocument(documentId)
     .then(function(response) {
       utils.writeJson(res, response, response.code);
