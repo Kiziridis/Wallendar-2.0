@@ -7,7 +7,7 @@ var utils = require('../utils/writer.js');
 var Calendar = require('../service/CalendarService');
 
 
-module.exports.addAllCalendars = function addAllCalendars (_req, res, body, userIds, calendarIds) {
+module.exports.addAllCalendars = function addAllCalendars (_req, res, _, body, userIds, calendarIds) {
 // Function to handle adding all calendars
 
   // Call the addAllCalendars function from the Calendar service
