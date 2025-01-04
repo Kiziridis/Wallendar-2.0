@@ -2,7 +2,6 @@
 
 var utils = require('../utils/writer.js');
 var Wallet = require('../service/WalletService');
-var Card = require('../service/CardService');
 
 /**
  * Adds a card to a wallet.
