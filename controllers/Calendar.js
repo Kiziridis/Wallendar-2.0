@@ -7,7 +7,7 @@ var utils = require('../utils/writer.js');
 var Calendar = require('../service/CalendarService');
 
 
-module.exports.addAllCalendars = function addAllCalendars (_req, res, _, body, userIds, calendarIds) {
+module.exports.addAllCalendars = function addAllCalendars (req, res, _, body, userIds, calendarIds) {
 // Function to handle adding all calendars
 
   // Call the addAllCalendars function from the Calendar service
@@ -23,7 +23,7 @@ module.exports.addAllCalendars = function addAllCalendars (_req, res, _, body, u
 };
 
 
-module.exports.addEvent = function addEvent (_req, res, _, body, calendarId) {
+module.exports.addEvent = function addEvent (req, res, _, body, calendarId) {
 // Function to handle adding an event
 
   // Call the addEvent function from the Calendar service
@@ -39,7 +39,7 @@ module.exports.addEvent = function addEvent (_req, res, _, body, calendarId) {
 };
 
 
-module.exports.deleteEvent = function deleteEvent (_req, res, _, calendarId, eventId) {
+module.exports.deleteEvent = function deleteEvent (req, res, _, calendarId, eventId) {
 // Function to handle deleting an event
 
   // Call the deleteEvent function from the Calendar service
@@ -56,7 +56,7 @@ module.exports.deleteEvent = function deleteEvent (_req, res, _, calendarId, eve
 };
 
 
-module.exports.findCommonFreeSpots = function findCommonFreeSpots (_req, res, _, userIds, calendarIds) {
+module.exports.findCommonFreeSpots = function findCommonFreeSpots (req, res, _, userIds, calendarIds) {
 // Function to handle finding common free spots
 
   // Call the findCommonFreeSpots function from the Calendar service
@@ -72,7 +72,7 @@ module.exports.findCommonFreeSpots = function findCommonFreeSpots (_req, res, _,
     });
 };
 
-module.exports.findFreeSpots = function findFreeSpots (_req, res, _, calendarId) {
+module.exports.findFreeSpots = function findFreeSpots (req, res, _, calendarId) {
   Calendar.findFreeSpots(calendarId)
     .then(function (response) {
       utils.writeJson(res, response, response.code);

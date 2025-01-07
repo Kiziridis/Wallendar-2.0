@@ -7,7 +7,7 @@ var utils = require('../utils/writer.js');
 var Card = require('../service/CardService');
 
 
-module.exports.selectCard = function selectCard (_req, res, _, walletId, cardNumber) {
+module.exports.selectCard = function selectCard (req, res, _, walletId, cardNumber) {
 // Function to handle selecting a card
 
   // Call the selectCard function from the Card service

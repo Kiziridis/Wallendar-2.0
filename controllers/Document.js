@@ -38,7 +38,7 @@ module.exports.addDocument = function addDocument(_req, res, _, body) {
  * @param {string} eventId - The ID of the event to which the document belongs.
  * @param {string} documentId - The ID of the document to add to the event.
  */
-module.exports.addDocumentEvent = function addDocumentEvent(_req, res, _, body, calendarId, eventId, documentId) {
+module.exports.addDocumentEvent = function addDocumentEvent(req, res, _, body, calendarId, eventId, documentId) {
   Document.addDocumentEvent(body, calendarId, eventId, documentId)
     .then(function(response) {
       utils.writeJson(res, response, response.code);
@@ -59,7 +59,7 @@ module.exports.addDocumentEvent = function addDocumentEvent(_req, res, _, body, 
  * @param {function} next - The next middleware function.
  * @param {string} documentId - The ID of the document to delete.
  */
-module.exports.deleteDocument = function deleteDocument(_req, res, _, documentId) {
+module.exports.deleteDocument = function deleteDocument(req, res, _, documentId) {
   Document.deleteDocument(documentId)
     .then(function(response) {
       utils.writeJson(res, response, response.code);
@@ -82,7 +82,7 @@ module.exports.deleteDocument = function deleteDocument(_req, res, _, documentId
  * @param {string} eventId - The ID of the event from which to delete the document.
  * @param {string} documentId - The ID of the document to delete from the event.
  */
-module.exports.deleteDocumentEvent = function deleteDocumentEvent(_req, res, _, calendarId, eventId, documentId) {
+module.exports.deleteDocumentEvent = function deleteDocumentEvent(req, res, _, calendarId, eventId, documentId) {
   Document.deleteDocumentEvent(calendarId, eventId, documentId)
     .then(function(response) {
       utils.writeJson(res, response, response.code);
@@ -103,7 +103,7 @@ module.exports.deleteDocumentEvent = function deleteDocumentEvent(_req, res, _, 
  * @param {function} next - The next middleware function.
  * @param {string} documentId - The ID of the document to view.
  */
-module.exports.viewDocument = function viewDocument(_req, res, _, documentId) {
+module.exports.viewDocument = function viewDocument(req, res, _, documentId) {
   Document.viewDocument(documentId)
     .then(function(response) {
       utils.writeJson(res, response, response.code);
