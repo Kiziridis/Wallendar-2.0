@@ -21,7 +21,7 @@ module.exports.acceptDeclineFriendRequest = function acceptDeclineFriendRequest 
 };
 
 // Function to handle canceling a friend request
-module.exports.cancelFriendRequest = function cancelFriendRequest (_, res, _, friendRequestId) {
+module.exports.cancelFriendRequest = function cancelFriendRequest (req, res, _, friendRequestId) {
   // Call the cancelFriendRequest function from the FriendRequest service
   FriendRequest.cancelFriendRequest(friendRequestId)
     .then(function (response) {
