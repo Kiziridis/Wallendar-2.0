@@ -7,7 +7,7 @@ var utils = require('../utils/writer.js');
 var Invitation = require('../service/InvitationService');
 
 
-module.exports.acceptDeclineEventInvitation = function acceptDeclineEventInvitation (_req, res, _next, body, invitationId) {
+module.exports.acceptDeclineEventInvitation = function acceptDeclineEventInvitation (_req, res, _, body, invitationId) {
 // Function to handle accepting or declining an event invitation
   
   // Call the acceptDeclineEventInvitation function from the Invitation service

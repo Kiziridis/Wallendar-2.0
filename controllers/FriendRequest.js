@@ -7,7 +7,7 @@ var utils = require('../utils/writer.js');
 var FriendRequest = require('../service/FriendRequestService');
 
 // Function to handle accepting or declining a friend request
-module.exports.acceptDeclineFriendRequest = function acceptDeclineFriendRequest (req, res, _, body, friendRequestId) {
+module.exports.acceptDeclineFriendRequest = function acceptDeclineFriendRequest (_, res, _, body, friendRequestId) {
   // Call the acceptDeclineFriendRequest function from the FriendRequest service
   FriendRequest.acceptDeclineFriendRequest(body, friendRequestId)
     .then(function (response) {
@@ -21,7 +21,7 @@ module.exports.acceptDeclineFriendRequest = function acceptDeclineFriendRequest 
 };
 
 // Function to handle canceling a friend request
-module.exports.cancelFriendRequest = function cancelFriendRequest (req, res, _, friendRequestId) {
+module.exports.cancelFriendRequest = function cancelFriendRequest (_, res, _, friendRequestId) {
   // Call the cancelFriendRequest function from the FriendRequest service
   FriendRequest.cancelFriendRequest(friendRequestId)
     .then(function (response) {
@@ -35,7 +35,7 @@ module.exports.cancelFriendRequest = function cancelFriendRequest (req, res, _, 
 };
 
 // Function to handle receiving a friend request
-module.exports.receiveFriendRequest = function receiveFriendRequest (req, res, _, senderId, friendRequestId) {
+module.exports.receiveFriendRequest = function receiveFriendRequest (_, res, _, senderId, friendRequestId) {
   // Call the receiveFriendRequest function from the FriendRequest service
   FriendRequest.receiveFriendRequest(senderId, friendRequestId)
     .then(function (response) {
@@ -49,7 +49,7 @@ module.exports.receiveFriendRequest = function receiveFriendRequest (req, res, _
 };
 
 // Function to handle sending a friend request
-module.exports.sendFriendRequest = function sendFriendRequest (req, res, _, body, receiverId) {
+module.exports.sendFriendRequest = function sendFriendRequest (_, res, _, body, receiverId) {
   // Call the sendFriendRequest function from the FriendRequest service
   FriendRequest.sendFriendRequest(body, receiverId)
     .then(function (response) {
