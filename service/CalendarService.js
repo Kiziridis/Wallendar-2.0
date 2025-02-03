@@ -96,7 +96,7 @@ function validateEventData(body) {
  * calendarIds List Ids of the users calendars
  * returns Calendars
  **/
-exports.addAllCalendars = function(body, userIds, calendarIds) {
+exports.addAllCalendars = function(body, _, calendarIds) {
   return new Promise(function(resolve, reject) {
     // Validate the input body
     const validationError = validateEventData(body);
@@ -209,8 +209,8 @@ examples['application/json'] = [ {
 "date" : "{}",
 "time" : "{}"
 } ];
-exports.findCommonFreeSpots = function(userIds,calendarIds) {
-  return new Promise(function(resolve, reject) {
+exports.findCommonFreeSpots = function(_,__) {
+  return new Promise(function(resolve, _) {
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {

@@ -8,8 +8,8 @@
  * friendRequestId Integer The Id of the friend request.
  * returns FriendRequest
  **/
-exports.acceptDeclineFriendRequest = function(body,friendRequestId) {
-  return new Promise(function(resolve, reject) {
+exports.acceptDeclineFriendRequest = function(_,__) {
+  return new Promise(function(resolve, _) {
     var examples = {};
     examples['application/json'] = {
   "senderId" : 0,
@@ -33,8 +33,8 @@ exports.acceptDeclineFriendRequest = function(body,friendRequestId) {
  * friendRequestId Integer The Id of the friend request.
  * returns Success
  **/
-exports.cancelFriendRequest = function(friendRequestId) {
-  return new Promise(function(resolve, reject) {
+exports.cancelFriendRequest = function(_) {
+  return new Promise(function(resolve, _) {
     var examples = {};
     examples['application/json'] = { };
     if (Object.keys(examples).length > 0) {
@@ -54,8 +54,8 @@ exports.cancelFriendRequest = function(friendRequestId) {
  * friendRequestId Integer The Id of the friend request.
  * returns FriendRequest
  **/
-exports.receiveFriendRequest = function(senderId,friendRequestId) {
-  return new Promise(function(resolve, reject) {
+exports.receiveFriendRequest = function(_,__) {
+  return new Promise(function(resolve, _) {
     var examples = {};
     examples['application/json'] = {
   "senderId" : 0,
@@ -80,8 +80,8 @@ exports.receiveFriendRequest = function(senderId,friendRequestId) {
  * receiverId Integer The userId of the receiver of the friend request.
  * returns FriendRequest
  **/
-exports.sendFriendRequest = function(body,receiverId) {
-  return new Promise(function(resolve, reject) {
+exports.sendFriendRequest = function(_,__) {
+  return new Promise(function(resolve, _) {
     var examples = {};
     examples['application/json'] = {
   "senderId" : 0,

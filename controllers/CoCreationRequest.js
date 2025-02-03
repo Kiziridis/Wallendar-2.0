@@ -7,7 +7,7 @@ var utils = require('../utils/writer.js');
 var CoCreationRequest = require('../service/CoCreationRequestService');
 
 
-module.exports.coCreation = function coCreation (req, res, _, body, suggestedTimeslot, coCreationId) {
+module.exports.coCreation = function coCreation (__, res, _, body, suggestedTimeslot, coCreationId) {
 // Function to handle co-creation
 
   // Call the coCreation function from the CoCreationRequest service
@@ -24,7 +24,7 @@ module.exports.coCreation = function coCreation (req, res, _, body, suggestedTim
 };
 
 
-module.exports.receiveCoCreationRequest = function receiveCoCreationRequest (req, res, _, senderId, coCreationId) {
+module.exports.receiveCoCreationRequest = function receiveCoCreationRequest (__, res, _, senderId, coCreationId) {
 // Function to handle receiving a co-creation request
 
   // Call the receiveCoCreationRequest function from the CoCreationRequest service
@@ -40,7 +40,7 @@ module.exports.receiveCoCreationRequest = function receiveCoCreationRequest (req
 };
 
 
-module.exports.sendCoCreationRequest = function sendCoCreationRequest (req, res, _, body, receiverIds) {
+module.exports.sendCoCreationRequest = function sendCoCreationRequest (__, res, _, body, receiverIds) {
 // Function to handle sending a co-creation request
 
   // Call the sendCoCreationRequest function from the CoCreationRequest service
