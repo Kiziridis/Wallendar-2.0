@@ -8,8 +8,8 @@
  * invitationId Integer The Id of the invitation.
  * returns Invitation
  **/
-exports.acceptDeclineEventInvitation = function(body,invitationId) {
-  return new Promise(function(resolve, reject) {
+exports.acceptDeclineEventInvitation = function(__,_) {
+  return new Promise(function(resolve, _) {
     var examples = {};
     examples['application/json'] = {
   "eventId" : 5,
@@ -36,8 +36,8 @@ exports.acceptDeclineEventInvitation = function(body,invitationId) {
  * invitationId Integer Id of the event invitation
  * returns Success
  **/
-exports.cancelInvite = function(calendarId,eventId,invitationId) {
-  return new Promise(function(resolve, reject) {
+exports.cancelInvite = function(_,__,___) {
+  return new Promise(function(resolve, _) {
     var examples = {};
     examples['application/json'] = { };
     if (Object.keys(examples).length > 0) {
@@ -59,8 +59,8 @@ exports.cancelInvite = function(calendarId,eventId,invitationId) {
  * eventId Integer Id of the event
  * returns Invitation
  **/
-exports.inviteEvent = function(body,inviteeId,calendarId,eventId) {
-  return new Promise(function(resolve, reject) {
+exports.inviteEvent = function(_,__,___,____) {
+  return new Promise(function(resolve, _) {
     var examples = {};
     examples['application/json'] = {
   "eventId" : 5,
@@ -88,8 +88,8 @@ exports.inviteEvent = function(body,inviteeId,calendarId,eventId) {
  * invitationId Integer Id of the event invitation
  * returns Invitation
  **/
-exports.receiveEventInvite = function(inviterId,calendarId,eventId,invitationId) {
-  return new Promise(function(resolve, reject) {
+exports.receiveEventInvite = function(__,_,___,____) {
+  return new Promise(function(resolve, _) {
     var examples = {};
     examples['application/json'] = {
   "eventId" : 5,

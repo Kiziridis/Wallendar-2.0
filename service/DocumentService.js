@@ -71,7 +71,7 @@ exports.addDocument = function(body) {
  * documentId Integer Id of the document that the user wants to add
  * returns Event
  **/
-exports.addDocumentEvent = function(_,calendarId,eventId,documentId) {
+exports.addDocumentEvent = function(_,__,___,____) {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = {
@@ -150,7 +150,7 @@ exports.deleteDocument = function(documentId) {
  * documentId Integer Id of the document that the user wants to remove
  * returns Success
  **/
-exports.deleteDocumentEvent = function(_,eventId,documentId) {
+exports.deleteDocumentEvent = function(_,__,___) {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = { };

@@ -224,8 +224,8 @@ exports.findCommonFreeSpots = function(_,__) {
  * calendarId Integer Id of the user's calendar
  * returns List
  **/
-exports.findFreeSpots = function(calendarId) {
-  return new Promise(function(resolve, reject) {
+exports.findFreeSpots = function(_) {
+  return new Promise(function(resolve, _) {
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {

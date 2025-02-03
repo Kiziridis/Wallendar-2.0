@@ -23,7 +23,7 @@ examples['application/json'] = {
  * coCreationId Integer Id of the co-creation request
  * returns CoCreationRequest
  **/
-exports.coCreation = function(_,__,coCreationId) {
+exports.coCreation = function(_,__,___) {
   return new Promise(function(resolve, _) {
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
@@ -42,7 +42,7 @@ exports.coCreation = function(_,__,coCreationId) {
  * returns CoCreationRequest
  **/
 exports.receiveCoCreationRequest = function(_,__) {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function(resolve, _) {
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {

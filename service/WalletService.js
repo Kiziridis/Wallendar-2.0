@@ -68,7 +68,7 @@ const wallets = [
  * walletId Integer Id of the user's wallet
  * returns Card
  **/
-exports.addCard = function(body, walletId) {
+exports.addCard = function(_, walletId) {
   return new Promise(function(resolve, reject) {
     // check if walletId is valid
     if (walletId <= 0 || !wallets[walletId]) {
